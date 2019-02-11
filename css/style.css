@@ -1,0 +1,55 @@
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidenav {
+    flex-basis: 350px;
+}
+
+.content {
+    flex: 1;
+}
+
+/* kondisi jika width window kurang dari max-width */
+
+@media screen and (max-width: 1000px) {
+    .sidenav {
+        flex: 1;
+    }
+}
+
+/* kondisi jika width window lebih dari min-width */
+
+@media screen and (min-width: 1000px) {
+    .container {
+        flex-direction: row;
+        height: 100%;
+    }
+    .sidenav {
+        height: 100%;
+    }
+}
+
+.button-sidenav {
+    margin-bottom: 4px;
+}
+
+.admin-form-patient {
+    width: 500px;
+}
+
+/* kondisi jika width window kurang dari 600px */
+
+@media screen and (max-width: 600px) {
+    .admin-form-patient {
+        width: 100%;
+    }
+}
