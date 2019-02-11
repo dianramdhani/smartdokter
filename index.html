@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SMART DOKTER</title>
+    <link rel="stylesheet" href="./node_modules/w3-css/3/w3.css">
+    <script src="./node_modules/angular/angular.js"></script>
+    <script src="./node_modules/@uirouter/angularjs/release/angular-ui-router.js"></script>
+    <script src="./dist/app.js"></script>
+</head>
+
+<body ng-app="smartdokter">
+    <p>
+        <a ui-sref-active="active" ui-sref="login">login</a>
+        <a ui-sref-active="active" ui-sref="register">register</a>
+        <a ui-sref-active="active" ui-sref="admin">admin</a>
+        <a ui-sref-active="active" ui-sref="dokter">dokter</a>
+    </p>
+    <ui-view></ui-view>
+</body>
+
+</html>
