@@ -16,6 +16,7 @@ body {
 
 .content {
     flex: 1;
+    overflow: auto;
 }
 
 /* kondisi jika width window kurang dari max-width */

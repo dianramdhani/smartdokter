@@ -1,15 +1,17 @@
 angular.module('smartdokter')
-    .component('adminRegistrationPatient', {
-        template: require('./admin-registration-patient.html'),
-        controller: ['$scope', '$location', 'adminService', class adminRegistrationPatient {
-            constructor($scope, $location, adminService) {
+    .component('adminUpdatePatient', {
+        template: require('./admin-update-patient.html'),
+        controller: ['$scope', '$stateParams', '$state', 'adminService', class adminUpdatePatient {
+            constructor($scope, $stateParams, $state, adminService) {
                 this.scope = $scope;
-                this.location = $location;
+                this.state = $state;
                 this.adminService = adminService;
+                this.scope.data = angular.fromJson($stateParams.data);
+                this.scope.data.tanggalDaftar = new Date(this.scope.data.tanggalDaftar);
             }
 
             $onInit() {
-                this.scope.register = (data) => {
+                this.scope.update = (data) => {
                     if (typeof data !== 'undefined') {
                         // check seluruh properti tidak boleh kosong
                         const dataPropertyChecker = ['alamat', 'gender', 'nama', 'tanggalDaftar', 'telefon'];
@@ -23,10 +25,10 @@ angular.module('smartdokter')
                             }
                         }
 
-                        // post ke server
-                        this.adminService.addNewDataPasien(data)
+                        // put ke server
+                        this.adminService.updatePasien(data)
                             .then(() => {
-                                this.location.path('/admin/patient');
+                                this.state.go('admin.patients');
                             });
                     }
                 };

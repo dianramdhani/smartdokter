@@ -1,0 +1,29 @@
+<div class="w3-card-4 w3-display-middle" style="width: 100%; max-width: 600px;">
+    <header class="w3-container w3-blue">
+        <h3>Update Patient</h3>
+    </header>
+    <div class="w3-container" style="background-color: white;">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" ng-class="data.nama? '': 'w3-pale-red'" ng-model="data.nama">
+        <label>Gender</label>
+        <div ng-class="data.gender? '': 'w3-pale-red'">
+            <input type="radio" value="male" ng-model="data.gender">
+            <label>Male</label>
+            <input type="radio" value="female" ng-model="data.gender">
+            <label>Female</label>
+        </div>
+        <label>Address</label>
+        <textarea class="w3-input w3-border" ng-class="data.alamat? '': 'w3-pale-red'"
+            ng-model="data.alamat"></textarea>
+        <label>Phone</label>
+        <input type="tel" class="w3-input w3-border" ng-class="data.telefon? '': 'w3-pale-red'"
+            ng-model="data.telefon"></input>
+        <label>Registration Date</label>
+        <input class="w3-input w3-border" type="date" ng-class="data.tanggalDaftar? '': 'w3-pale-red'"
+            ng-model="data.tanggalDaftar">
+        <p>
+            <button class="w3-button w3-blue" ng-click="update(data)">Update</button>
+            <a class="w3-button w3-red" ui-sref="admin.patients">Cancel</a>
+        </p>
+    </div>
+</div>

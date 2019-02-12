@@ -34,4 +34,19 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Update data pasien.
+         * @param {Object} data - Data pasien.
+         * @returns {Object} - Status
+         */
+        updatePasien(data) {
+            var q = this.q.defer();
+            this.http.put(`${this.urlServer}/pasien/${data.id}`, data)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
     }]);

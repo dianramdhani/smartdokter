@@ -14,4 +14,5 @@ require('../components/admin/admin');
 require('../components/admin-table-patients/admin-table-patients');
 require('../components/admin-table-services/admin-table-services');
 require('../components/admin-registration-patient/admin-registration-patient');
+require('../components/admin-update-patient/admin-update-patient');
 require('../components/dokter/dokter');

@@ -1,10 +1,10 @@
 angular.module('smartdokter')
     .component('adminTablePatients', {
         template: require('./admin-table-patients.html'),
-        controller: ['$scope', 'adminService', class adminTablePatients {
-            constructor($scope, adminService) {
-                console.log('adminTablePatients terbuka');
+        controller: ['$scope', '$state', 'adminService', class adminTablePatients {
+            constructor($scope, $state, adminService) {
                 this.scope = $scope;
+                this.state = $state;
                 this.adminService = adminService;
             }
 
@@ -13,6 +13,10 @@ angular.module('smartdokter')
                     .then((res) => {
                         this.scope.data = res;
                     });
+
+                this.scope.update = (data) => {
+                    this.state.go('admin.updatePatient', { data });
+                };
             }
         }]
     });
