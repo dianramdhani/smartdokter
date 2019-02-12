@@ -1,1 +1,35 @@
-admin-table-services terbuka
+<h2>Service</h2>
+<hr>
+
+<p>
+    <a class="w3-button w3-blue" ui-sref="admin.addService">Add Service</a>
+</p>
+
+<table class="w3-table-all">
+    <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Registration Date</th>
+        <th>Detail</th>
+        <th>Update/Delete</th>
+    </tr>
+    <tr ng-repeat="_data in data track by _data.id">
+        <td>{{_data.nama}}</td>
+        <td>{{_data.gender}}</td>
+        <td>{{_data.alamat}}</td>
+        <td>{{_data.telefon}}</td>
+        <td>{{_data.tanggalDaftar | date}}</td>
+        <td><a class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
+                ng-href="#!/admin/patient/detail/{{_data.id}}">Detail</a></td>
+        <td>
+            <div class="w3-bar">
+                <button class="w3-bar-item w3-button w3-blue w3-tiny w3-padding-small" style="width: 50%;"
+                    ng-click="update(_data)">Update</button>
+                <button class="w3-bar-item w3-button w3-red w3-tiny w3-padding-small" style="width: 50%;"
+                    ng-click="delete(_data.id)">Delete</button>
+            </div>
+        </td>
+    </tr>
+</table>

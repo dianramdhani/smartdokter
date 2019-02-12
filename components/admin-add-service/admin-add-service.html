@@ -1,0 +1,23 @@
+<div class="w3-card-4 w3-display-middle" style="width: 100%; max-width: 600px;">
+    <header class="w3-container w3-blue">
+        <h3>Add Service</h3>
+    </header>
+
+    <div class="w3-container" style="background-color: white;">
+        <label>Patient Name</label>
+        <!-- <input class="w3-input w3-border" type="text" ng-class="data.nama? '': 'w3-pale-red'" ng-model="data.nama"> -->
+        <select class="w3-select w3-border" name="option">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+        <label>Symptoms</label>
+        <textarea class="w3-input w3-border" ng-class="data.alamat? '': 'w3-pale-red'"
+            ng-model="data.penyakit"></textarea>
+        <p>
+            <button class="w3-button w3-blue" ng-click="register(data)">Register</button>
+            <a class="w3-button w3-red" ui-sref-active="active" ui-sref="admin.patients">Cancel</a>
+        </p>
+    </div>
+</div>

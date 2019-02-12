@@ -27,6 +27,7 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.22",
     "angular": "^1.7.7",
+    "angular-cookies": "^1.7.7",
     "w3-css": "^4.1.0"
   }
 }

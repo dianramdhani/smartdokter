@@ -1,8 +1,10 @@
 angular.module('smartdokter')
-    .service('adminService', ['$http', '$q', 'dokterService', class adminService {
-        constructor($http, $q, dokterService) {
+    .service('adminService', ['$http', '$q', '$rootScope', '$cookies', 'dokterService', class adminService {
+        constructor($http, $q, $rootScope, $cookies, dokterService) {
             this.http = $http;
             this.q = $q;
+            this.rootScope = $rootScope;
+            this.cookies = $cookies;
             this.dokterService = dokterService;
             this.urlServer = 'http://192.168.11.117:8082';
         }
@@ -67,7 +69,7 @@ angular.module('smartdokter')
         }
 
         /**
-         * Autentikasi admin.
+         * Autentikasi admin. Set email dan password ke cookie.
          * @param {String} email - Email admin.
          * @param {String} password - Password admin.
          * @returns {Boolean} - True jika berhasil login, dan sebaliknya.
@@ -84,10 +86,13 @@ angular.module('smartdokter')
                         if (res.password === password) {
                             _res = true;
 
-                            /**
-                             * @todo
-                             * password dan email simpan ke cache
-                             */
+                            // set email dengan password ke cookie
+                            this.rootScope.globals = {
+                                currentUser: { email, password, role: 'admin' }
+                            };
+                            let cookieExp = new Date();
+                            cookieExp.setDate(cookieExp.getDate() + 7);
+                            this.cookies.putObject('globals', this.rootScope.globals, { expires: cookieExp });
                         } else {
                             alert('failed to login');
                         }
@@ -95,5 +100,13 @@ angular.module('smartdokter')
                     q.resolve(_res);
                 });
             return q.promise;
+        }
+
+        /**
+         * Logout akun admin.
+         */
+        logout() {
+            this.rootScope.globals = {};
+            this.cookies.remove('globals');
         }
     }]);

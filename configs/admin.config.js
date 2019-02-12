@@ -5,6 +5,7 @@ angular.module('smartdokter')
             { name: 'admin.services', url: '/service', component: 'adminTableServices' },
             { name: 'admin.registrationPatient', url: '/', component: 'adminRegistrationPatient' },
             { name: 'admin.updatePatient', url: '/{data:json}', component: 'adminUpdatePatient' },
+            { name: 'admin.addService', url: '/', component: 'adminAddService' },
         ];
 
         states.forEach(function (state) {
