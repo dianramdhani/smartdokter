@@ -5,12 +5,11 @@
 
     <div class="w3-container">
         <label>E-mail</label>
-        <input class="w3-input" type="text">
+        <input class="w3-input" type="text" ng-class="data.email? '': 'w3-pale-red'" ng-model="data.email">
         <label>Password</label>
-        <input class="w3-input" type="password">
+        <input class="w3-input" type="password" ng-class="data.password? '': 'w3-pale-red'" ng-model="data.password">
         <p>
-            <!-- <button class="w3-button w3-blue">Login</button> -->
-            <a class="w3-button w3-blue" ui-sref-active="active" ui-sref="admin">Login</a>
+            <button class="w3-button w3-blue" ng-click="login(data)">Login</button>
             <a href="#!login/registration" class="w3-button">Registration</a>
         </p>
     </div>

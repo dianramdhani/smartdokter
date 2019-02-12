@@ -1,8 +1,9 @@
 angular.module('smartdokter')
-    .service('adminService', ['$http', '$q', class api {
-        constructor($http, $q) {
+    .service('adminService', ['$http', '$q', 'dokterService', class adminService {
+        constructor($http, $q, dokterService) {
             this.http = $http;
             this.q = $q;
+            this.dokterService = dokterService;
             this.urlServer = 'http://192.168.11.117:8082';
         }
 
@@ -61,6 +62,37 @@ angular.module('smartdokter')
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
+                });
+            return q.promise;
+        }
+
+        /**
+         * Autentikasi admin.
+         * @param {String} email - Email admin.
+         * @param {String} password - Password admin.
+         * @returns {Boolean} - True jika berhasil login, dan sebaliknya.
+         */
+        auth(email, password) {
+            var q = this.q.defer();
+            this.dokterService.getDokterByEmail(email)
+                .then((res) => {
+                    let _res = false;
+
+                    if (res === '') {
+                        alert('failed to login');
+                    } else {
+                        if (res.password === password) {
+                            _res = true;
+
+                            /**
+                             * @todo
+                             * password dan email simpan ke cache
+                             */
+                        } else {
+                            alert('failed to login');
+                        }
+                    }
+                    q.resolve(_res);
                 });
             return q.promise;
         }

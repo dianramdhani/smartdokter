@@ -15,9 +15,11 @@ angular.module('smartdokter')
                         const dataPropertyChecker = ['alamat', 'gender', 'nama', 'tanggalDaftar', 'telefon'];
                         for (const property of dataPropertyChecker) {
                             if (!data.hasOwnProperty(property)) {
+                                alert('Please fill in correctly!');
                                 return;
                             } else {
                                 if (data[property] === '') {
+                                    alert('Please fill in correctly!');
                                     return;
                                 }
                             }
@@ -28,6 +30,8 @@ angular.module('smartdokter')
                             .then(() => {
                                 this.location.path('/admin/patient');
                             });
+                    } else {
+                        alert('Please fill in correctly!');
                     }
                 };
             }

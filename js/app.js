@@ -6,6 +6,7 @@ require('../configs/admin.config');
 
 // service
 require('../services/admin.service');
+require('../services/dokter.service');
 
 // component
 require('../components/login/login');
