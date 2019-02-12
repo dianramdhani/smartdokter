@@ -49,4 +49,19 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Menghapus data pasien.
+         * @param {Number} id - Id pasien.
+         * @returns {Object} - Status.
+         */
+        deletePasienById(id) {
+            var q = this.q.defer();
+            this.http.delete(`${this.urlServer}/pasien/${id}`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
     }]);

@@ -8,14 +8,27 @@ angular.module('smartdokter')
                 this.adminService = adminService;
             }
 
-            $onInit() {
+            updateData() {
                 this.adminService.getAllDataPasiens()
                     .then((res) => {
                         this.scope.data = res;
                     });
+            }
+
+            $onInit() {
+                this.updateData();
 
                 this.scope.update = (data) => {
                     this.state.go('admin.updatePatient', { data });
+                };
+
+                this.scope.delete = (id) => {
+                    if (confirm('Are you sure?')) {
+                        this.adminService.deletePasienById(id)
+                            .then(() => {
+                                this.updateData();
+                            });
+                    }
                 };
             }
         }]
