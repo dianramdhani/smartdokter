@@ -7,6 +7,31 @@ angular.module('smartdokter')
         }
 
         /**
+         * Mengambil seluruh data dokter.
+         */
+        getAllDokters() {
+            var q = this.q.defer();
+            this.http.get(`${this.urlServer}/dokter`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
+
+        getDokterById(id) {
+            var q = this.q.defer();
+            this.getAllDokters()
+                .then((res) => {
+                    let _res = res.find((dataDokter) => {
+                        return dataDokter.idDok === id;
+                    });
+                    q.resolve(_res);
+                });
+            return q.promise;
+        }
+
+        /**
          * Mengambil data dokter berdasar parameter email.
          * @param {String} email - Email dokter.
          * @returns {Object} - Data dokter.

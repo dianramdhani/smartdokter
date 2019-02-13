@@ -24,6 +24,22 @@ angular.module('smartdokter')
         }
 
         /**
+         * Mengambil data pasien berdasarkan id.
+         * @param {Number} id - Id pasien.
+         */
+        getDataPasienById(id) {
+            var q = this.q.defer();
+            this.getAllDataPasiens()
+                .then((res) => {
+                    let _res = res.find((dataPatient) => {
+                        return dataPatient.id === id;
+                    });
+                    q.resolve(_res);
+                });
+            return q.promise;
+        }
+
+        /**
          * Menambah data pasien.
          * @param {Object} data - Data pasien.
          * @returns {Object} - Status.
