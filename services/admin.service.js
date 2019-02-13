@@ -92,29 +92,36 @@ angular.module('smartdokter')
          */
         auth(email, password) {
             var q = this.q.defer();
-            this.dokterService.getDokterByEmail(email)
-                .then((res) => {
-                    let _res = false;
+            this.http({
+                url: `${this.urlServer}/securedPassword?plainPassword=${password}`,
+                method: 'GET',
+                transformResponse: [(resPass) => {
+                    password = resPass;
+                    this.dokterService.getDokterByEmail(email)
+                        .then((res) => {
+                            let _res = false;
 
-                    if (res === '') {
-                        alert('failed to login');
-                    } else {
-                        if (res.password === password) {
-                            _res = true;
+                            if (res === '') {
+                                alert('failed to login');
+                            } else {
+                                if (res.password === password) {
+                                    _res = true;
 
-                            // set email dengan password ke cookie
-                            this.rootScope.globals = {
-                                currentUser: { email, password, emailDokter: res.email, role: 'admin' }
-                            };
-                            let cookieExp = new Date();
-                            cookieExp.setDate(cookieExp.getDate() + 7);
-                            this.cookies.putObject('globals', this.rootScope.globals, { expires: cookieExp });
-                        } else {
-                            alert('failed to login');
-                        }
-                    }
-                    q.resolve(_res);
-                });
+                                    // set email dengan password ke cookie
+                                    this.rootScope.globals = {
+                                        currentUser: { email, password, emailDokter: res.email, role: 'admin' }
+                                    };
+                                    let cookieExp = new Date();
+                                    cookieExp.setDate(cookieExp.getDate() + 7);
+                                    this.cookies.putObject('globals', this.rootScope.globals, { expires: cookieExp });
+                                } else {
+                                    alert('failed to login');
+                                }
+                            }
+                            q.resolve(_res);
+                        });
+                }]
+            });
             return q.promise;
         }
 

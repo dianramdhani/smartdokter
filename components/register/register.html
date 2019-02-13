@@ -1,1 +1,30 @@
-register terbuka
+<div class="w3-card-4 w3-display-middle" style="width: 100%; max-width: 600px;">
+    <header class="w3-container w3-blue">
+        <h3>Register</h3>
+    </header>
+
+    <div class="w3-container">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" ng-class="data.nama? '': 'w3-pale-red'" ng-model="data.nama">
+        <label>Address</label>
+        <textarea class="w3-input w3-border" ng-class="data.alamatDok? '': 'w3-pale-red'"
+            ng-model="data.alamatDok"></textarea>
+        <label>Specialist</label>
+        <input class="w3-input w3-border" type="text" ng-class="data.spesialis? '': 'w3-pale-red'"
+            ng-model="data.spesialis">
+        <label>E-mail</label>
+        <input class="w3-input w3-border" type="email" ng-class="data.email? '': 'w3-pale-red'" ng-model="data.email">
+        <label>Password</label>
+        <input class="w3-input w3-border" ng-init="typePassword='password'" type="{{typePassword}}"
+            placeholder="Must be at least 8 characters" ng-class="data.password? '': 'w3-pale-red'"
+            ng-model="data.password">
+        <div class="w3-right">
+            <button class="w3-button" ng-click="typePassword='text'">Show Password</button>
+            <button class="w3-button" ng-click="typePassword='password'">Hide Password</button>
+        </div>
+        <p>
+            <button class="w3-button w3-blue" ng-click="register(data)">Register</button>
+            <a class="w3-button w3-red" ui-sref="login">Cancel</a>
+        </p>
+    </div>
+</div>

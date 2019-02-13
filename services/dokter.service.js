@@ -60,4 +60,19 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Menambah dokter.
+         * @param {Object} data - Data dokter.
+         * @returns {Object} - Status.
+         */
+        addNewDokter(data) {
+            var q = this.q.defer();
+            this.http.post(`${this.urlServer}/dokter`, data)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
     }]);
