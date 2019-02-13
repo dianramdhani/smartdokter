@@ -146,14 +146,17 @@ angular.module('smartdokter')
         }
 
         /**
-         * Menampilkan seluruh service (pendaftaran).
+         * Menampilkan seluruh service (pendaftaran) berdasar id dokter.
          */
         getAllDaftarAntris() {
             var q = this.q.defer();
-            this.http.get(`${this.urlServer}/pendaftaran`)
+            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
                 .then((res) => {
-                    res = res.data;
-                    q.resolve(res);
+                    this.http.get(`${this.urlServer}/pendaftaran/idDokter/${res.idDok}`)
+                        .then((res) => {
+                            res = res.data;
+                            q.resolve(res);
+                        });
                 });
             return q.promise;
         }
@@ -171,12 +174,12 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
-        
+
         /**
          * Delete pendaftaran berdasar id.
          * @param {Number} id - Id pendaftaran
          */
-        deletePendaftaranById(id){
+        deletePendaftaranById(id) {
             var q = this.q.defer();
             this.http.delete(`${this.urlServer}/pendaftaran/${id}`)
                 .then((res) => {
