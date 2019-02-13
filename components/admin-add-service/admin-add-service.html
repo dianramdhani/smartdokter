@@ -5,19 +5,23 @@
 
     <div class="w3-container" style="background-color: white;">
         <label>Patient Name</label>
-        <!-- <input class="w3-input w3-border" type="text" ng-class="data.nama? '': 'w3-pale-red'" ng-model="data.nama"> -->
-        <select class="w3-select w3-border" name="option">
-            <option value="" disabled selected>Choose your option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
+        <select class="w3-select w3-border" ng-class="data.idPasien? '': 'w3-pale-red'" ng-model="data.idPasien">
+            <option value="" disabled selected>Select your option</option>
+            <option ng-repeat="patient in patients track by patient.id" value="{{patient.id}}">
+                {{patient.nama}} - {{patient.alamat}}
+            </option>
         </select>
+        <label>Queue Number</label>
+        <input class="w3-input w3-border" type="number" ng-class="data.nomorAntrian? '': 'w3-pale-red'" ng-model="data.nomorAntrian">
+        <label>Date of Service</label>
+        <input class="w3-input w3-border" type="date" ng-class="data.tanggalKunjungan? '': 'w3-pale-red'"
+            ng-model="data.tanggalKunjungan">
         <label>Symptoms</label>
-        <textarea class="w3-input w3-border" ng-class="data.alamat? '': 'w3-pale-red'"
+        <textarea class="w3-input w3-border" ng-class="data.penyakit? '': 'w3-pale-red'"
             ng-model="data.penyakit"></textarea>
         <p>
-            <button class="w3-button w3-blue" ng-click="register(data)">Register</button>
-            <a class="w3-button w3-red" ui-sref-active="active" ui-sref="admin.patients">Cancel</a>
+            <button class="w3-button w3-blue" ng-click="addService(data)">Add Service</button>
+            <a class="w3-button w3-red" ui-sref-active="active" ui-sref="admin.services">Cancel</a>
         </p>
     </div>
 </div>

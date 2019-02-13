@@ -88,7 +88,7 @@ angular.module('smartdokter')
 
                             // set email dengan password ke cookie
                             this.rootScope.globals = {
-                                currentUser: { email, password, role: 'admin' }
+                                currentUser: { email, password, emailDokter: res.email, role: 'admin' }
                             };
                             let cookieExp = new Date();
                             cookieExp.setDate(cookieExp.getDate() + 7);
@@ -108,5 +108,37 @@ angular.module('smartdokter')
         logout() {
             this.rootScope.globals = {};
             this.cookies.remove('globals');
+        }
+
+        /**
+         * Menambah data service (pendaftaran).
+         * @param {Object} data - Data service (pendaftaran).
+         * @returns {Object} - Status.
+         */
+        addPendaftaran(data) {
+            var q = this.q.defer();
+            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
+                .then((res) => {
+                    data['idDokter'] = res.idDok;
+                    this.http.post(`${this.urlServer}/pendaftaran`, data)
+                        .then((res) => {
+                            res = res.data;
+                            q.resolve(res);
+                        });
+                });
+            return q.promise;
+        }
+
+        /**
+         * Menampilkan seluruh service (pendaftaran).
+         */
+        getAllDaftarAntris() {
+            var q = this.q.defer();
+            this.http.get(`${this.urlServer}/pendaftaran`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
         }
     }]);
