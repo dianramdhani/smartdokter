@@ -17,6 +17,7 @@ angular.module('smartdokter', ['ui.router', 'ngCookies'])
 // config
 require('../configs/app.config');
 require('../configs/admin.config');
+require('../configs/dokter.config');
 
 // service
 require('../services/admin.service');
@@ -33,3 +34,4 @@ require('../components/admin-update-patient/admin-update-patient');
 require('../components/admin-add-service/admin-add-service');
 require('../components/admin-update-service/admin-update-service');
 require('../components/dokter/dokter');
+require('../components/dokter-table-patients/dokter-table-patients');

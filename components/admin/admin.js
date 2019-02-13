@@ -6,11 +6,11 @@ angular.module('smartdokter')
                 this.state = $state;
                 this.scope = $scope;
                 this.adminService = adminService;
-                
-                this.state.go('admin.patients');
             }
 
             $onInit() {
+                this.state.go('admin.patients');
+
                 this.scope.logout = () => {
                     this.adminService.logout();
                     this.state.go('login');

@@ -9,7 +9,8 @@
         <label>Password</label>
         <input class="w3-input" type="password" ng-class="data.password? '': 'w3-pale-red'" ng-model="data.password">
         <p>
-            <button class="w3-button w3-blue" ng-click="login(data)">Login</button>
+            <button class="w3-button w3-blue" ng-click="loginAdmin(data)">Login Admin</button>
+            <button class="w3-button w3-blue" ng-click="loginDoctor(data)">Login Doctor</button>
             <a class="w3-button" ui-sref="register">Registration</a>
         </p>
     </div>
