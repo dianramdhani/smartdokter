@@ -157,4 +157,32 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Update data service (pendaftaran).
+         * @param {Object} data - Data pendaftaran.
+         */
+        updatePendaftaran(data) {
+            var q = this.q.defer();
+            this.http.put(`${this.urlServer}/pendaftaran/${data.id}`, data)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
+        
+        /**
+         * Delete pendaftaran berdasar id.
+         * @param {Number} id - Id pendaftaran
+         */
+        deletePendaftaranById(id){
+            var q = this.q.defer();
+            this.http.delete(`${this.urlServer}/pendaftaran/${id}`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
     }]);

@@ -31,4 +31,5 @@ require('../components/admin-table-services/admin-table-services');
 require('../components/admin-registration-patient/admin-registration-patient');
 require('../components/admin-update-patient/admin-update-patient');
 require('../components/admin-add-service/admin-add-service');
+require('../components/admin-update-service/admin-update-service');
 require('../components/dokter/dokter');
