@@ -71,7 +71,7 @@ angular.module('smartdokter')
          */
         addNewDokter(data) {
             var q = this.q.defer();
-            this.http.post(`${this.urlServer}/dokter`, data)
+            this.http.post(`${this.urlServer}/registrasi`, data)
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
@@ -96,7 +96,12 @@ angular.module('smartdokter')
 
                     // set rootScope for default data
                     this.rootScope.globals = {
-                        currentUser: { email, password, token: res.token, role: 'dokter' }
+                        currentUser: {
+                            id: res.id,
+                            email: res.username,
+                            token: res.token,
+                            role: res.role
+                        }
                     };
 
                     // set cookie for 1 week
@@ -120,5 +125,19 @@ angular.module('smartdokter')
             this.rootScope.globals = {};
             this.cookies.remove('globals');
             this.http.defaults.headers.common['token'] = '';
+        }
+
+        /**
+         * Ambil list pendaftaran berdasar id dokter yang disimpan di rootScope.
+         * @returns {Array} - List pendaftaran.
+         */
+        getPendaftaranByIdDokter() {
+            var q = this.q.defer();
+            this.http.get(`${this.urlServer}/pendaftaran/idDokter/${this.rootScope.globals.currentUser.id}`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
         }
     }]);

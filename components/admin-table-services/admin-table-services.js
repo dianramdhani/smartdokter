@@ -14,7 +14,7 @@ angular.module('smartdokter')
                 this.scope.data = [];
                 this.adminService.getAllDaftarAntris()
                     .then((res) => {
-                        res.forEach((antri, i) => {
+                        res.forEach((antri) => {
                             this.q.all([
                                 this.adminService.getDataPasienById(antri.idPasien),
                                 this.dokterService.getDokterById(antri.idDokter)

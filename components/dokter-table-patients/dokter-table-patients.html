@@ -1,1 +1,23 @@
-dokter-table-patients terbuka
+<h2>Patient List</h2>
+<hr>
+
+<table class="w3-table-all">
+    <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Symptoms</th>
+        <th>Queue Number</th>
+        <th>Date of Service</th>
+    </tr>
+    <tr ng-repeat="_data in data track by _data.id">
+        <td>{{_data.namaPasien}}</td>
+        <td>{{_data.genderPasien}}</td>
+        <td>{{_data.alamatPasien}}</td>
+        <td>{{_data.telefonPasien}}</td>
+        <td>{{_data.penyakit}}</td>
+        <td>{{_data.nomorAntrian}}</td>
+        <td>{{_data.tanggalKunjungan | date}}</td>
+    </tr>
+</table>

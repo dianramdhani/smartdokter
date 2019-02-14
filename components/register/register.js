@@ -30,17 +30,24 @@ angular.module('smartdokter')
                         }
 
                         // post ke server
-                        this.dokterService.getDokterByEmail(data.email)
-                            .then((res) => {
-                                if (res === '') {
-                                    this.dokterService.addNewDokter(data)
-                                        .then(() => {
-                                            alert('Registration Success');
-                                            this.state.go('login');
-                                        });
-                                } else
-                                    alert('Please fill in another e-mail!');
+                        this.dokterService.addNewDokter(data)
+                            .then(() => {
+                                alert('Registration Success');
+                                this.state.go('login');
                             });
+
+                        // gagal fungsi di bawah karena butuh autentikasi
+                        // this.dokterService.getDokterByEmail(data.email)
+                        //     .then((res) => {
+                        //         if (res === '') {
+                        //             this.dokterService.addNewDokter(data)
+                        //                 .then(() => {
+                        //                     alert('Registration Success');
+                        //                     this.state.go('login');
+                        //                 });
+                        //         } else
+                        //             alert('Please fill in another e-mail!');
+                        //     });
                     } else
                         alert('Please fill in correctly!');
                 };

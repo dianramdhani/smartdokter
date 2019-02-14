@@ -13,7 +13,8 @@
         <th>Phone</th>
         <th>Registration Date</th>
         <th>Detail</th>
-        <th>Update/Delete</th>
+        <!-- <th>Update/Delete</th> -->
+        <th>Update</th>
     </tr>
     <tr ng-repeat="_data in data track by _data.id">
         <td>{{_data.nama}}</td>
@@ -23,13 +24,17 @@
         <td>{{_data.tanggalDaftar | date}}</td>
         <td><a class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
                 ng-href="#!/admin/patient/detail/{{_data.id}}">Detail</a></td>
-        <td>
+        <!-- Hanya untuk percobaan jika menggunakan tombol hapus. Bisa menyebabkan error di relasi. -->
+        <!-- <td>
             <div class="w3-bar">
                 <button class="w3-bar-item w3-button w3-blue w3-tiny w3-padding-small" style="width: 50%;"
                     ng-click="update(_data)">Update</button>
                 <button class="w3-bar-item w3-button w3-red w3-tiny w3-padding-small" style="width: 50%;"
                     ng-click="delete(_data.id)">Delete</button>
             </div>
+        </td> -->
+        <td>
+            <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small" ng-click="update(_data)">Update</button>
         </td>
     </tr>
 </table>
