@@ -26,6 +26,10 @@ angular.module('smartdokter')
                                 });
                         });
                     });
+
+                this.scope.addTreatment = (data) => {
+                    this.state.go('dokter.addTreatment', { data });
+                };
             }
         }]
     });

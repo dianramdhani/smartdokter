@@ -22,8 +22,10 @@
         <td>{{_data.alamat}}</td>
         <td>{{_data.telefon}}</td>
         <td>{{_data.tanggalDaftar | date}}</td>
-        <td><a class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
-                ng-href="#!/admin/patient/detail/{{_data.id}}">Detail</a></td>
+        <td>
+            <a class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
+                ng-href="#!/admin/patient/detail/{{_data.id}}">Detail</a>
+        </td>
         <!-- Hanya untuk percobaan jika menggunakan tombol hapus. Bisa menyebabkan error di relasi. -->
         <!-- <td>
             <div class="w3-bar">

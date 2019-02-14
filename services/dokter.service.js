@@ -140,4 +140,19 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Menambah data riwayat.
+         * @param {Object} data - Data riwayat dari treatment.
+         * @returns {Object} - Status.
+         */
+        addRiwayat(data) {
+            var q = this.q.defer();
+            this.http.post(`${this.urlServer}/riwayat`, data)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
     }]);

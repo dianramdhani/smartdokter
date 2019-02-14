@@ -39,3 +39,4 @@ require('../components/admin-add-service/admin-add-service');
 require('../components/admin-update-service/admin-update-service');
 require('../components/dokter/dokter');
 require('../components/dokter-table-patients/dokter-table-patients');
+require('../components/dokter-add-treatment/dokter-add-treatment');

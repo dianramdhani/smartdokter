@@ -1,0 +1,21 @@
+<div class="w3-card-4 w3-display-middle" style="width: 100%; max-width: 600px;">
+    <header class="w3-container w3-blue">
+        <h3>Add Treatment</h3>
+    </header>
+
+    <div class="w3-container" style="background-color: white;">
+        <label>Diagnosa</label>
+        <textarea class="w3-input w3-border" ng-class="data.diagnosa? '': 'w3-pale-red'"
+            ng-model="data.diagnosa"></textarea>
+        <label>Tindakan</label>
+        <textarea class="w3-input w3-border" ng-class="data.tindakan? '': 'w3-pale-red'"
+            ng-model="data.tindakan"></textarea>
+        <label>Total Biaya</label>
+        <input class="w3-input w3-border" type="number" ng-class="data.totalBiaya? '': 'w3-pale-red'"
+            ng-model="data.totalBiaya">
+        <p>
+            <button class="w3-button w3-blue" ng-click="addTreatment(data)">Add Treatment</button>
+            <a class="w3-button w3-red" ui-sref="dokter.patients">Cancel</a>
+        </p>
+    </div>
+</div>

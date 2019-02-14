@@ -10,6 +10,7 @@
         <th>Symptoms</th>
         <th>Queue Number</th>
         <th>Date of Service</th>
+        <th>Add Treatment</th>
     </tr>
     <tr ng-repeat="_data in data track by _data.id">
         <td>{{_data.namaPasien}}</td>
@@ -19,5 +20,10 @@
         <td>{{_data.penyakit}}</td>
         <td>{{_data.nomorAntrian}}</td>
         <td>{{_data.tanggalKunjungan | date}}</td>
+        <td>
+            <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small" ng-click="addTreatment(_data)">
+                Add Treatment
+            </button>
+        </td>
     </tr>
 </table>
