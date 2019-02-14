@@ -28,6 +28,7 @@
     "@uirouter/angularjs": "^1.0.22",
     "angular": "^1.7.7",
     "angular-cookies": "^1.7.7",
+    "angular-md5": "^0.1.10",
     "w3-css": "^4.1.0"
   }
 }

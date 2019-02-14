@@ -1,10 +1,11 @@
 angular.module('smartdokter')
-    .service('dokterService', ['$http', '$q', '$rootScope', '$cookies', class dokterService {
-        constructor($http, $q, $rootScope, $cookies) {
+    .service('dokterService', ['$http', '$q', '$rootScope', '$cookies', 'md5', class dokterService {
+        constructor($http, $q, $rootScope, $cookies, md5) {
             this.http = $http;
             this.q = $q;
             this.rootScope = $rootScope;
             this.cookies = $cookies;
+            this.md5 = md5;
             this.urlServer = 'http://192.168.11.117:8082';
         }
 
@@ -85,37 +86,30 @@ angular.module('smartdokter')
          * @returns {Boolean} - True jika berhasil login, dan sebaliknya.
          */
         auth(email, password) {
-            var q = this.q.defer();
-            this.http({
-                url: `${this.urlServer}/securedPassword?plainPassword=${password}`,
-                method: 'GET',
-                transformResponse: [(resPass) => {
-                    password = resPass;
-                    this.getDokterByEmail(email)
-                        .then((res) => {
-                            let _res = false;
+            password = this.md5.createHash(password);
 
-                            if (res === '') {
-                                alert('failed to login');
-                            } else {
-                                if (res.password === password) {
-                                    _res = true;
+            let q = this.q.defer(),
+                _res = false;
+            this.http.post(`${this.urlServer}/login`, { email, password })
+                .then((res) => {
+                    res = res.data;
 
-                                    // set email dengan password ke cookie
-                                    this.rootScope.globals = {
-                                        currentUser: { email, password, emailDokter: res.email, role: 'dokter' }
-                                    };
-                                    let cookieExp = new Date();
-                                    cookieExp.setDate(cookieExp.getDate() + 7);
-                                    this.cookies.putObject('globals', this.rootScope.globals, { expires: cookieExp });
-                                } else {
-                                    alert('failed to login');
-                                }
-                            }
-                            q.resolve(_res);
-                        });
-                }]
-            });
+                    // set rootScope for default data
+                    this.rootScope.globals = {
+                        currentUser: { email, password, token: res.token, role: 'dokter' }
+                    };
+
+                    // set cookie for 1 week
+                    let cookieExp = new Date();
+                    cookieExp.setDate(cookieExp.getDate() + 7);
+                    this.cookies.putObject('globals', this.rootScope.globals, { expires: cookieExp });
+
+                    // set token for all http request
+                    this.http.defaults.headers.common['token'] = res.token;
+
+                    _res = true;
+                    q.resolve(_res);
+                });
             return q.promise;
         }
 
@@ -125,5 +119,6 @@ angular.module('smartdokter')
         logout() {
             this.rootScope.globals = {};
             this.cookies.remove('globals');
+            this.http.defaults.headers.common['token'] = '';
         }
     }]);

@@ -1,7 +1,11 @@
-angular.module('smartdokter', ['ui.router', 'ngCookies'])
-    .run(['$rootScope', '$cookies', '$location', function ($rootScope, $cookies, $location) {
+angular.module('smartdokter', ['ui.router', 'ngCookies', 'angular-md5'])
+    .run(['$rootScope', '$cookies', '$location', '$http', function ($rootScope, $cookies, $location, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = angular.fromJson($cookies.get('globals')) || {};
+        
+        // jika telah login
+        if ($rootScope.globals.currentUser)
+            $http.defaults.headers.common['token'] = $rootScope.globals.currentUser.token;
 
         $rootScope.$on('$locationChangeStart', () => {
             let restrictedPage = ['/login', '/register'].find((path) => {
