@@ -182,4 +182,22 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Menambah data obat.
+         * @param {Object} data - Data obat.
+         */
+        addNewObat(data) {
+            var q = this.q.defer();
+            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
+                .then((res) => {
+                    data['idDokter'] = res.idDok;
+                    this.http.post(`${this.urlServer}/obat`, data)
+                        .then((res) => {
+                            res = res.data;
+                            q.resolve(res);
+                        });
+                });
+            return q.promise;
+        }
     }]);

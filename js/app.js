@@ -37,6 +37,8 @@ require('../components/admin-registration-patient/admin-registration-patient');
 require('../components/admin-update-patient/admin-update-patient');
 require('../components/admin-add-service/admin-add-service');
 require('../components/admin-update-service/admin-update-service');
+require('../components/admin-table-obat/admin-table-obat');
+require('../components/admin-add-obat/admin-add-obat');
 require('../components/dokter/dokter');
 require('../components/dokter-table-patients/dokter-table-patients');
 require('../components/dokter-add-treatment/dokter-add-treatment');

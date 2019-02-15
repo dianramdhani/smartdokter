@@ -1,0 +1,17 @@
+<div class="w3-card-4 w3-display-middle" style="width: 100%; max-width: 600px;">
+    <header class="w3-container w3-blue">
+        <h3>Add Drug</h3>
+    </header>
+
+    <div class="w3-container" style="background-color: white;">
+        <label>Drug Name</label>
+        <input class="w3-input w3-border" type="text" ng-class="data.namaObat? '': 'w3-pale-red'"
+            ng-model="data.namaObat">
+        <label>Price</label>
+        <input class="w3-input w3-border" type="number" ng-class="data.harga? '': 'w3-pale-red'" ng-model="data.harga">
+        <p>
+            <button class="w3-button w3-blue" ng-click="addObat(data)">Add Drug</button>
+            <a class="w3-button w3-red" ui-sref="admin.obats">Cancel</a>
+        </p>
+    </div>
+</div>

@@ -28,7 +28,6 @@ angular.module('smartdokter')
                                         status: _res[1].length === 0 ? 'Waiting' : 'Has Been Treatment'
                                     });
                                     this.scope.data.push(temp);
-                                    console.log(antri, _res);
                                 });
                         });
                     });
