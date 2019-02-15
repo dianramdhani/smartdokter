@@ -200,4 +200,18 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Mengambil seluruh data obat.
+         * @returns {Array} - Seluruh data obat.
+         */
+        getAllObat() {
+            var q = this.q.defer();
+            this.http.get(`${this.urlServer}/obat`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
     }]);

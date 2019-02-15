@@ -1,2 +1,17 @@
-admin-table-obat terbuka
-<a class="w3-button w3-blue" ui-sref="admin.addObat">Add Drug</a>
+<h2>Drug</h2>
+<hr>
+
+<p>
+    <a class="w3-button w3-blue" ui-sref="admin.addObat">Add Drug</a>
+</p>
+
+<table class="w3-table-all">
+    <tr>
+        <th>Drug Name</th>
+        <th>Price</th>
+    </tr>
+    <tr ng-repeat="_data in data track by _data.id">
+        <td>{{_data.namaObat}}</td>
+        <td>{{_data.harga}}</td>
+    </tr>
+</table>

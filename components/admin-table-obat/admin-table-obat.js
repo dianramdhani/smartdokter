@@ -8,5 +8,12 @@ angular.module('smartdokter')
                 this.scope = $scope;
                 this.adminService = adminService;
             }
+
+            $onInit() {
+                this.adminService.getAllObat()
+                    .then((res) => {
+                        this.scope.data = res;
+                    });
+            }
         }]
     });
