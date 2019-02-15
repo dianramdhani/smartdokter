@@ -1,10 +1,11 @@
 angular.module('smartdokter')
     .component('dokterTablePatients', {
         template: require('./dokter-table-patients.html'),
-        controller: ['$scope', '$state', 'dokterService', 'adminService', class dokterTablePatients {
-            constructor($scope, $state, dokterService, adminService) {
+        controller: ['$scope', '$state', '$q', 'dokterService', 'adminService', class dokterTablePatients {
+            constructor($scope, $state, $q, dokterService, adminService) {
                 this.scope = $scope;
                 this.state = $state;
+                this.q = $q;
                 this.dokterService = dokterService;
                 this.adminService = adminService;
             }
@@ -14,15 +15,20 @@ angular.module('smartdokter')
                 this.dokterService.getPendaftaranByIdDokter()
                     .then((res) => {
                         res.forEach((antri) => {
-                            this.adminService.getDataPasienById(antri.idPasien)
+                            this.q.all([
+                                this.adminService.getDataPasienById(antri.idPasien),
+                                this.dokterService.getRiwayatByIdPendaftaran(antri.id)
+                            ])
                                 .then((_res) => {
                                     let temp = Object.assign(antri, {
-                                        namaPasien: _res.nama,
-                                        alamatPasien: _res.alamat,
-                                        genderPasien: _res.gender,
-                                        telefonPasien: _res.telefon,
+                                        namaPasien: _res[0].nama,
+                                        alamatPasien: _res[0].alamat,
+                                        genderPasien: _res[0].gender,
+                                        telefonPasien: _res[0].telefon,
+                                        status: _res[1].length === 0 ? 'Waiting' : 'Has Been Treatment'
                                     });
                                     this.scope.data.push(temp);
+                                    console.log(antri, _res);
                                 });
                         });
                     });

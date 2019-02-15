@@ -155,4 +155,18 @@ angular.module('smartdokter')
                 });
             return q.promise;
         }
+
+        /**
+         * Mengambil data riwayat berdasar id pendaftaran.
+         * @param {Number} id - Id pendaftaran.
+         */
+        getRiwayatByIdPendaftaran(id) {
+            var q = this.q.defer();
+            this.http.get(`${this.urlServer}/riwayat/idPendaftaran/${id}`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
     }]);

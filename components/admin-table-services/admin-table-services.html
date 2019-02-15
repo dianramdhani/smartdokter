@@ -15,7 +15,7 @@
         <th>Queue Number</th>
         <th>Date of Service</th>
         <th>Name Doctor</th>
-        <th>Update/Delete</th>
+        <!-- <th>Update/Delete</th> -->
     </tr>
     <tr ng-repeat="_data in data track by _data.id">
         <td>{{_data.namaPasien}}</td>
@@ -26,13 +26,13 @@
         <td>{{_data.nomorAntrian}}</td>
         <td>{{_data.tanggalKunjungan | date}}</td>
         <td>{{_data.namaDokter}}</td>
-        <td>
+        <!-- <td>
             <div class="w3-bar">
                 <button class="w3-bar-item w3-button w3-blue w3-tiny w3-padding-small" style="width: 50%;"
                     ng-click="update(_data)">Update</button>
                 <button class="w3-bar-item w3-button w3-red w3-tiny w3-padding-small" style="width: 50%;"
                     ng-click="delete(_data.id)">Delete</button>
             </div>
-        </td>
+        </td> -->
     </tr>
 </table>
