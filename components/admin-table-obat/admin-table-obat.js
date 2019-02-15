@@ -10,7 +10,7 @@ angular.module('smartdokter')
             }
 
             $onInit() {
-                this.adminService.getAllObat()
+                this.adminService.getAllObatByIdDokter()
                     .then((res) => {
                         this.scope.data = res;
                     });

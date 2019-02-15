@@ -4,15 +4,47 @@
     </header>
 
     <div class="w3-container" style="background-color: white;">
-        <label>Diagnosa</label>
+        <label>Diagnosis</label>
         <textarea class="w3-input w3-border" ng-class="data.diagnosa? '': 'w3-pale-red'"
             ng-model="data.diagnosa"></textarea>
-        <label>Tindakan</label>
+        <label>Action</label>
         <textarea class="w3-input w3-border" ng-class="data.tindakan? '': 'w3-pale-red'"
             ng-model="data.tindakan"></textarea>
-        <label>Total Biaya</label>
+        <!-- <label>Total Biaya</label>
         <input class="w3-input w3-border" type="number" ng-class="data.totalBiaya? '': 'w3-pale-red'"
-            ng-model="data.totalBiaya">
+            ng-model="data.totalBiaya"> -->
+
+        <!-- testing -->
+
+        <label>Drug</label>
+        <select class="w3-select w3-border" ng-class="obatDipilih.length !== 0? '': 'w3-pale-red'" ng-model="obat">
+            <option value="" disabled selected>Select your option</option>
+            <option ng-repeat="_obat in obats track by _obat.id" value="{{_obat}}">
+                {{_obat.namaObat}} - {{_obat.harga}}
+            </option>
+        </select>
+        <button class="w3-button w3-blue w3-right" ng-click="tambahObat(obat)">Add</button>
+        <table class="w3-table-all">
+            <tr>
+                <th>Drug Name</th>
+                <th>Price</th>
+                <th>Delete</th>
+            </tr>
+            <tr ng-repeat="_obat in obatDipilih | orderBy: 'namaObat' track by $index">
+                <td>{{_obat.namaObat}}</td>
+                <td class="w3-right">{{_obat.harga}}</td>
+                <td>
+                    <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
+                        ng-click="deleteObat($index)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th class="w3-right">{{totalBiaya}}</th>
+                <th></th>
+            </tr>
+        </table>
+
         <p>
             <button class="w3-button w3-blue" ng-click="addTreatment(data)">Add Treatment</button>
             <a class="w3-button w3-red" ui-sref="dokter.patients">Cancel</a>

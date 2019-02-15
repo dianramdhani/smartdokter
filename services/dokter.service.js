@@ -99,6 +99,7 @@ angular.module('smartdokter')
                         currentUser: {
                             id: res.id,
                             email: res.username,
+                            emailDokter: res.username,
                             token: res.token,
                             role: res.role
                         }
@@ -163,6 +164,20 @@ angular.module('smartdokter')
         getRiwayatByIdPendaftaran(id) {
             var q = this.q.defer();
             this.http.get(`${this.urlServer}/riwayat/idPendaftaran/${id}`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res);
+                });
+            return q.promise;
+        }
+
+        /**
+         * Menyimpan data transaksi obat.
+         * @param {Object} data - Data transaksi obat.
+         */
+        transaksiObat(data) {
+            var q = this.q.defer();
+            this.http.post(`${this.urlServer}/transaksiObat`, data)
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);

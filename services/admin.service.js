@@ -202,16 +202,20 @@ angular.module('smartdokter')
         }
 
         /**
-         * Mengambil seluruh data obat.
+         * Mengambil seluruh data obat berdasar id dokter.
          * @returns {Array} - Seluruh data obat.
          */
-        getAllObat() {
+        getAllObatByIdDokter() {
             var q = this.q.defer();
-            this.http.get(`${this.urlServer}/obat`)
+            this.q.all([
+                this.http.get(`${this.urlServer}/obat`),
+                this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
+            ])
                 .then((res) => {
-                    res = res.data;
-                    q.resolve(res);
-                });
+                    let resObats = res[0].data,
+                        dataDokter = res[1];
+                    q.resolve(resObats.filter(obat => obat.idDokter === dataDokter.idDok));
+                })
             return q.promise;
         }
     }]);
