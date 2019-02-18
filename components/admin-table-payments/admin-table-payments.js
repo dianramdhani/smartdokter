@@ -14,8 +14,8 @@
             controllerAs: '$ctrl',
         });
 
-    adminTablePaymentsController.$inject = ['$scope', 'Riwayat', 'Pasien'];
-    function adminTablePaymentsController($scope, Riwayat, Pasien) {
+    adminTablePaymentsController.$inject = ['$scope', '$state', 'Riwayat', 'Pasien'];
+    function adminTablePaymentsController($scope, $state, Riwayat, Pasien) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -29,6 +29,10 @@
                             });
                     });
                 });
+
+            $scope.detailPayment = (data) => {
+                $state.go('admin.detailPayment', { riwayat: data });
+            };
         };
     }
 })();

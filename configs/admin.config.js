@@ -10,6 +10,7 @@ angular.module('smartdokter')
             { name: 'admin.obats', url: '/obat', component: 'adminTableObat' },
             { name: 'admin.addObat', url: '/obat/add', component: 'adminAddObat' },
             { name: 'admin.payments', url: '/payment', component: 'adminTablePayments' },
+            { name: 'admin.detailPayment', url: '/payment/detail/{riwayat:json}', component: 'adminPaymentDetail' },
         ];
 
         states.forEach(function (state) {

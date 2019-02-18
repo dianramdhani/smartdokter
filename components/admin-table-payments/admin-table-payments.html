@@ -8,6 +8,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Total Bill</th>
+        <th>Detail</th>
     </tr>
     <tr ng-repeat="_data in data track by _data.id">
         <td>{{_data.dataPasien.nama}}</td>
@@ -15,5 +16,10 @@
         <td>{{_data.dataPasien.alamat}}</td>
         <td>{{_data.dataPasien.telefon}}</td>
         <td>{{_data.totalBiaya}}</td>
+        <td>
+            <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small" ng-click="detailPayment(_data)">
+                Detail
+            </button>
+        </td>
     </tr>
 </table>

@@ -46,6 +46,7 @@ require('../components/admin-update-service/admin-update-service');
 require('../components/admin-table-obat/admin-table-obat');
 require('../components/admin-add-obat/admin-add-obat');
 require('../components/admin-table-payments/admin-table-payments');
+require('../components/admin-payment-detail/admin-payment-detail');
 require('../components/dokter/dokter');
 require('../components/dokter-table-patients/dokter-table-patients');
 require('../components/dokter-add-treatment/dokter-add-treatment');

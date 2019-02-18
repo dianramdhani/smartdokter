@@ -14,6 +14,7 @@
         this.addPendaftaran = addPendaftaran;
         this.updatePendaftaran = updatePendaftaran;
         this.deletePendaftaranById = deletePendaftaranById;
+        this.getAntriById = getAntriById;
 
         /**
          * Ambil list pendaftaran berdasar id dokter yang disimpan di rootScope.
@@ -68,6 +69,20 @@
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
+                });
+            return q.promise;
+        }
+
+        /**
+         * Mengambil data pendaftaran berdasar id.
+         * @param {Number} id - Id pendaftaran.
+         * @returns {Object} - Data pendaftaran.
+         */
+        function getAntriById(id) {
+            var q = $q.defer();
+            getPendaftaranByIdDokter()
+                .then((res) => {
+                    q.resolve(res.find(antri => antri.id === id));
                 });
             return q.promise;
         }
