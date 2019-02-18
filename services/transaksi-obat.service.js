@@ -5,8 +5,8 @@
         .module('smartdokter')
         .service('TransaksiObat', TransaksiObat);
 
-    TransaksiObat.$inject = ['$http'];
-    function TransaksiObat($http) {
+    TransaksiObat.$inject = ['$http', '$q'];
+    function TransaksiObat($http, $q) {
         const URL_SERVER = 'http://192.168.11.117:8082';
 
         // seluruh method di service

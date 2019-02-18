@@ -1,0 +1,19 @@
+<h2>Payment</h2>
+<hr>
+
+<table class="w3-table-all">
+    <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Total Bill</th>
+    </tr>
+    <tr ng-repeat="_data in data track by _data.id">
+        <td>{{_data.dataPasien.nama}}</td>
+        <td>{{_data.dataPasien.gender}}</td>
+        <td>{{_data.dataPasien.alamat}}</td>
+        <td>{{_data.dataPasien.telefon}}</td>
+        <td>{{_data.totalBiaya}}</td>
+    </tr>
+</table>

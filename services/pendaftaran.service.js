@@ -12,7 +12,6 @@
         // seluruh method di service
         this.getPendaftaranByIdDokter = getPendaftaranByIdDokter;
         this.addPendaftaran = addPendaftaran;
-        this.getAllDaftarAntris = getAllDaftarAntris;
         this.updatePendaftaran = updatePendaftaran;
         this.deletePendaftaranById = deletePendaftaranById;
 
@@ -38,20 +37,6 @@
             var q = $q.defer();
             data['idDokter'] = Auth.getCurrentUser().id;
             $http.post(`${URL_SERVER}/pendaftaran`, data)
-                .then((res) => {
-                    res = res.data;
-                    q.resolve(res);
-                });
-            return q.promise;
-        }
-
-        /**
-         * Menampilkan seluruh service (pendaftaran) berdasar id dokter.
-         * @returns {Array} - Seluruh data pendaftaran. 
-         */
-        function getAllDaftarAntris() {
-            var q = $q.defer();
-            $http.get(`${URL_SERVER}/pendaftaran/idDokter/${Auth.getCurrentUser().id}`)
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);

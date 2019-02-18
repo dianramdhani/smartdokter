@@ -9,6 +9,7 @@ angular.module('smartdokter')
             { name: 'admin.updateService', url: '/service/update/{data:json}', component: 'adminUpdateService' },
             { name: 'admin.obats', url: '/obat', component: 'adminTableObat' },
             { name: 'admin.addObat', url: '/obat/add', component: 'adminAddObat' },
+            { name: 'admin.payments', url: '/payment', component: 'adminTablePayments' },
         ];
 
         states.forEach(function (state) {

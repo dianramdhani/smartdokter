@@ -1,35 +1,31 @@
-angular.module('smartdokter')
-    .service('dokterService', ['$http', '$q', '$rootScope', '$cookies', 'md5', class dokterService {
-        constructor($http, $q, $rootScope, $cookies, md5) {
-            this.http = $http;
-            this.q = $q;
-            this.rootScope = $rootScope;
-            this.cookies = $cookies;
-            this.md5 = md5;
-            this.urlServer = 'http://192.168.11.117:8082';
-        }
+(function () {
+    'use strict';
+
+    angular
+        .module('smartdokter')
+        .service('Dokter', Dokter);
+
+    Dokter.$inject = ['$http', '$q'];
+    function Dokter($http, $q) {
+        const URL_SERVER = 'http://192.168.11.117:8082';
+
+        // Seluruh method di service
+        this.getAllDokters = getAllDokters;
+        this.getDokterByEmail = getDokterByEmail;
+        this.getDokterByNama = getDokterByNama;
+        this.addNewDokter = addNewDokter;
+        this.getDokterById = getDokterById;
 
         /**
          * Mengambil seluruh data dokter.
+         * @returns {Array} - Seluruh data dokter.
          */
-        getAllDokters() {
-            var q = this.q.defer();
-            this.http.get(`${this.urlServer}/dokter`)
+        function getAllDokters() {
+            var q = $q.defer();
+            $http.get(`${URL_SERVER}/dokter`)
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
-                });
-            return q.promise;
-        }
-
-        getDokterById(id) {
-            var q = this.q.defer();
-            this.getAllDokters()
-                .then((res) => {
-                    let _res = res.find((dataDokter) => {
-                        return dataDokter.idDok === id;
-                    });
-                    q.resolve(_res);
                 });
             return q.promise;
         }
@@ -39,9 +35,9 @@ angular.module('smartdokter')
          * @param {String} email - Email dokter.
          * @returns {Object} - Data dokter.
          */
-        getDokterByEmail(email) {
-            var q = this.q.defer();
-            this.http.get(`${this.urlServer}/dokter/email`, { params: { email } })
+        function getDokterByEmail(email) {
+            var q = $q.defer();
+            $http.get(`${URL_SERVER}/dokter/email`, { params: { email } })
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
@@ -54,9 +50,9 @@ angular.module('smartdokter')
          * @param {String} nama - Nama dokter.
          * @returns {Array} - Array dari object data dokter.
          */
-        getDokterByNama(nama) {
-            var q = this.q.defer();
-            this.http.get(`${this.urlServer}/dokter/nama/${nama}`)
+        function getDokterByNama(nama) {
+            var q = $q.defer();
+            $http.get(`${URL_SERVER}/dokter/nama/${nama}`)
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
@@ -69,9 +65,9 @@ angular.module('smartdokter')
          * @param {Object} data - Data dokter.
          * @returns {Object} - Status.
          */
-        addNewDokter(data) {
-            var q = this.q.defer();
-            this.http.post(`${this.urlServer}/registrasi`, data)
+        function addNewDokter(data) {
+            var q = $q.defer();
+            $http.post(`${URL_SERVER}/registrasi`, data)
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
@@ -80,108 +76,18 @@ angular.module('smartdokter')
         }
 
         /**
-         * Autentikasi dokter. Set email dan password ke cookie.
-         * @param {String} email - Email dokter.
-         * @param {String} password - Password dokter.
-         * @returns {Boolean} - True jika berhasil login, dan sebaliknya.
+         * Mengambil data dokter berdasar id.
+         * @param {Number} id - Id dokter.
+         * @returns {Object} - Data dokter.
          */
-        auth(email, password) {
-            password = this.md5.createHash(password);
-
-            let q = this.q.defer(),
-                _res = false;
-            this.http.post(`${this.urlServer}/login`, { email, password })
+        function getDokterById(id) {
+            var q = $q.defer();
+            getAllDokters()
                 .then((res) => {
-                    res = res.data;
-
-                    // set rootScope for default data
-                    this.rootScope.globals = {
-                        currentUser: {
-                            id: res.id,
-                            email: res.username,
-                            emailDokter: res.username,
-                            token: res.token,
-                            role: res.role
-                        }
-                    };
-
-                    // set cookie for 1 week
-                    let cookieExp = new Date();
-                    cookieExp.setDate(cookieExp.getDate() + 7);
-                    this.cookies.putObject('globals', this.rootScope.globals, { expires: cookieExp });
-
-                    // set token for all http request
-                    this.http.defaults.headers.common['token'] = res.token;
-
-                    _res = true;
-                    q.resolve(_res);
+                    q.resolve(res.find(dataDokter => dataDokter.idDok === id));
                 });
             return q.promise;
         }
 
-        /**
-         * Logout akun dokter.
-         */
-        logout() {
-            this.rootScope.globals = {};
-            this.cookies.remove('globals');
-            this.http.defaults.headers.common['token'] = '';
-        }
-
-        /**
-         * Ambil list pendaftaran berdasar id dokter yang disimpan di rootScope.
-         * @returns {Array} - List pendaftaran.
-         */
-        getPendaftaranByIdDokter() {
-            var q = this.q.defer();
-            this.http.get(`${this.urlServer}/pendaftaran/idDokter/${this.rootScope.globals.currentUser.id}`)
-                .then((res) => {
-                    res = res.data;
-                    q.resolve(res);
-                });
-            return q.promise;
-        }
-
-        /**
-         * Menambah data riwayat.
-         * @param {Object} data - Data riwayat dari treatment.
-         * @returns {Object} - Status.
-         */
-        addRiwayat(data) {
-            var q = this.q.defer();
-            this.http.post(`${this.urlServer}/riwayat`, data)
-                .then((res) => {
-                    res = res.data;
-                    q.resolve(res);
-                });
-            return q.promise;
-        }
-
-        /**
-         * Mengambil data riwayat berdasar id pendaftaran.
-         * @param {Number} id - Id pendaftaran.
-         */
-        getRiwayatByIdPendaftaran(id) {
-            var q = this.q.defer();
-            this.http.get(`${this.urlServer}/riwayat/idPendaftaran/${id}`)
-                .then((res) => {
-                    res = res.data;
-                    q.resolve(res);
-                });
-            return q.promise;
-        }
-
-        /**
-         * Menyimpan data transaksi obat.
-         * @param {Object} data - Data transaksi obat.
-         */
-        transaksiObat(data) {
-            var q = this.q.defer();
-            this.http.post(`${this.urlServer}/transaksiObat`, data)
-                .then((res) => {
-                    res = res.data;
-                    q.resolve(res);
-                });
-            return q.promise;
-        }
-    }]);
+    }
+})();

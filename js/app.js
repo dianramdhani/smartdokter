@@ -23,23 +23,20 @@ require('../configs/app.config');
 require('../configs/admin.config');
 require('../configs/dokter.config');
 
-// service
-// require('../services/admin.service');
-// require('../services/dokter.service');
-
 // update service
-require('../services/update/auth.service');
-require('../services/update/dokter.service');
-require('../services/update/obat.service');
-require('../services/update/pasien.service');
-require('../services/update/pendaftaran.service');
-require('../services/update/riwayat.service');
-require('../services/update/transaksi-obat.service');
+require('../services/auth.service');
+require('../services/dokter.service');
+require('../services/obat.service');
+require('../services/pasien.service');
+require('../services/pendaftaran.service');
+require('../services/riwayat.service');
+require('../services/transaksi-obat.service');
 
 // component
 require('../components/login/login');
 require('../components/register/register');
 require('../components/admin/admin');
+require('../components/resume-patient/resume-patient');
 require('../components/admin-table-patients/admin-table-patients');
 require('../components/admin-table-services/admin-table-services');
 require('../components/admin-registration-patient/admin-registration-patient');
@@ -48,6 +45,7 @@ require('../components/admin-add-service/admin-add-service');
 require('../components/admin-update-service/admin-update-service');
 require('../components/admin-table-obat/admin-table-obat');
 require('../components/admin-add-obat/admin-add-obat');
+require('../components/admin-table-payments/admin-table-payments');
 require('../components/dokter/dokter');
 require('../components/dokter-table-patients/dokter-table-patients');
 require('../components/dokter-add-treatment/dokter-add-treatment');

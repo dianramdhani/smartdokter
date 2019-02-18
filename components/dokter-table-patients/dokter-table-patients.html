@@ -10,6 +10,7 @@
         <th>Symptoms</th>
         <th>Queue Number</th>
         <th>Date of Service</th>
+        <th>Resume</th>
         <th>Status</th>
     </tr>
     <tr ng-repeat="_data in data track by _data.id">
@@ -20,6 +21,7 @@
         <td>{{_data.penyakit}}</td>
         <td>{{_data.nomorAntrian}}</td>
         <td>{{_data.tanggalKunjungan | date}}</td>
+        <td><a ui-sref="dokter.resumePatient({id:_data.idPasien})">Resume</a></td>
 
         <td ng-show="_data.status === 'Has Been Treatment'">{{_data.status}}</td>
         <td ng-show="_data.status === 'Waiting'">
