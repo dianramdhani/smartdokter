@@ -1,15 +1,15 @@
 angular.module('smartdokter')
     .component('adminTablePatients', {
         template: require('./admin-table-patients.html'),
-        controller: ['$scope', '$state', 'adminService', class adminTablePatients {
-            constructor($scope, $state, adminService) {
+        controller: ['$scope', '$state', 'Pasien', class adminTablePatients {
+            constructor($scope, $state, Pasien) {
                 this.scope = $scope;
                 this.state = $state;
-                this.adminService = adminService;
+                this.Pasien = Pasien;
             }
 
             updateData() {
-                this.adminService.getAllDataPasiens()
+                this.Pasien.getAllDataPasiens()
                     .then((res) => {
                         this.scope.data = res;
                     });
@@ -24,7 +24,7 @@ angular.module('smartdokter')
 
                 this.scope.delete = (id) => {
                     if (confirm('Are you sure?')) {
-                        this.adminService.deletePasienById(id)
+                        this.Pasien.deletePasienById(id)
                             .then(() => {
                                 this.updateData();
                             });

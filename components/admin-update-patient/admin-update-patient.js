@@ -1,11 +1,11 @@
 angular.module('smartdokter')
     .component('adminUpdatePatient', {
         template: require('./admin-update-patient.html'),
-        controller: ['$scope', '$stateParams', '$state', 'adminService', class adminUpdatePatient {
-            constructor($scope, $stateParams, $state, adminService) {
+        controller: ['$scope', '$stateParams', '$state', 'Pasien', class adminUpdatePatient {
+            constructor($scope, $stateParams, $state, Pasien) {
                 this.scope = $scope;
                 this.state = $state;
-                this.adminService = adminService;
+                this.Pasien = Pasien;
                 this.scope.data = angular.fromJson($stateParams.data);
                 this.scope.data.tanggalDaftar = new Date(this.scope.data.tanggalDaftar);
             }
@@ -26,7 +26,7 @@ angular.module('smartdokter')
                         }
 
                         // put ke server
-                        this.adminService.updatePasien(data)
+                        this.Pasien.updatePasien(data)
                             .then(() => {
                                 this.state.go('admin.patients');
                             });

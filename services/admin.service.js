@@ -127,7 +127,7 @@ angular.module('smartdokter')
          */
         addPendaftaran(data) {
             var q = this.q.defer();
-            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
+            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.email)
                 .then((res) => {
                     data['idDokter'] = res.idDok;
                     this.http.post(`${this.urlServer}/pendaftaran`, data)
@@ -144,7 +144,7 @@ angular.module('smartdokter')
          */
         getAllDaftarAntris() {
             var q = this.q.defer();
-            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
+            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.email)
                 .then((res) => {
                     this.http.get(`${this.urlServer}/pendaftaran/idDokter/${res.idDok}`)
                         .then((res) => {
@@ -189,7 +189,7 @@ angular.module('smartdokter')
          */
         addNewObat(data) {
             var q = this.q.defer();
-            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
+            this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.email)
                 .then((res) => {
                     data['idDokter'] = res.idDok;
                     this.http.post(`${this.urlServer}/obat`, data)
@@ -209,7 +209,7 @@ angular.module('smartdokter')
             var q = this.q.defer();
             this.q.all([
                 this.http.get(`${this.urlServer}/obat`),
-                this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.emailDokter)
+                this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.email)
             ])
                 .then((res) => {
                     let resObats = res[0].data,

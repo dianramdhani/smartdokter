@@ -1,26 +1,27 @@
 angular.module('smartdokter')
     .component('dokterTablePatients', {
         template: require('./dokter-table-patients.html'),
-        controller: ['$scope', '$state', '$q', 'dokterService', 'adminService', class dokterTablePatients {
-            constructor($scope, $state, $q, dokterService, adminService) {
+        controller: ['$scope', '$state', '$q', 'Riwayat', 'Pasien', 'Pendaftaran', class dokterTablePatients {
+            constructor($scope, $state, $q, Riwayat, Pasien, Pendaftaran) {
                 this.scope = $scope;
                 this.state = $state;
                 this.q = $q;
-                this.dokterService = dokterService;
-                this.adminService = adminService;
+                this.Riwayat = Riwayat;
+                this.Pasien = Pasien;
+                this.Pendaftaran = Pendaftaran;
             }
 
             $onInit() {
                 this.scope.data = [];
-                this.dokterService.getPendaftaranByIdDokter()
+                this.Pendaftaran.getPendaftaranByIdDokter()
                     .then((res) => {
-                        res.forEach((antri) => {
+                        res.forEach((pendaftaran) => {
                             this.q.all([
-                                this.adminService.getDataPasienById(antri.idPasien),
-                                this.dokterService.getRiwayatByIdPendaftaran(antri.id)
+                                this.Pasien.getDataPasienById(pendaftaran.idPasien),
+                                this.Riwayat.getRiwayatByIdPendaftaran(pendaftaran.id)
                             ])
                                 .then((_res) => {
-                                    let temp = Object.assign(antri, {
+                                    let temp = Object.assign(pendaftaran, {
                                         namaPasien: _res[0].nama,
                                         alamatPasien: _res[0].alamat,
                                         genderPasien: _res[0].gender,

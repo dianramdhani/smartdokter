@@ -2,7 +2,7 @@ angular.module('smartdokter', ['ui.router', 'ngCookies', 'angular-md5'])
     .run(['$rootScope', '$cookies', '$location', '$http', function ($rootScope, $cookies, $location, $http) {
         // keep user logged in after page refresh
         $rootScope.globals = angular.fromJson($cookies.get('globals')) || {};
-        
+
         // jika telah login
         if ($rootScope.globals.currentUser)
             $http.defaults.headers.common['token'] = $rootScope.globals.currentUser.token;
@@ -24,8 +24,17 @@ require('../configs/admin.config');
 require('../configs/dokter.config');
 
 // service
-require('../services/admin.service');
-require('../services/dokter.service');
+// require('../services/admin.service');
+// require('../services/dokter.service');
+
+// update service
+require('../services/update/auth.service');
+require('../services/update/dokter.service');
+require('../services/update/obat.service');
+require('../services/update/pasien.service');
+require('../services/update/pendaftaran.service');
+require('../services/update/riwayat.service');
+require('../services/update/transaksi-obat.service');
 
 // component
 require('../components/login/login');

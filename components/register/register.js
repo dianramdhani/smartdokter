@@ -1,10 +1,10 @@
 angular.module('smartdokter')
     .component('register', {
         template: require('./register.html'),
-        controller: ['$scope', '$state', 'dokterService', class register {
-            constructor($scope, $state, dokterService) {
+        controller: ['$scope', '$state', 'Dokter', class register {
+            constructor($scope, $state, Dokter) {
                 this.scope = $scope;
-                this.dokterService = dokterService;
+                this.Dokter = Dokter;
                 this.state = $state;
             }
 
@@ -30,7 +30,7 @@ angular.module('smartdokter')
                         }
 
                         // post ke server
-                        this.dokterService.addNewDokter(data)
+                        this.Dokter.addNewDokter(data)
                             .then(() => {
                                 alert('Registration Success');
                                 this.state.go('login');

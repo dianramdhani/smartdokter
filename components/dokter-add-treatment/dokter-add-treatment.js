@@ -1,14 +1,15 @@
 angular.module('smartdokter')
     .component('dokterAddTreatment', {
         template: require('./dokter-add-treatment.html'),
-        controller: ['$scope', '$state', '$stateParams', '$q', 'dokterService', 'adminService', class dokterAddTreatment {
-            constructor($scope, $state, $stateParams, $q, dokterService, adminService) {
+        controller: ['$scope', '$state', '$stateParams', '$q', 'Obat', 'Riwayat', 'TransaksiObat', class dokterAddTreatment {
+            constructor($scope, $state, $stateParams, $q, Obat, Riwayat, TransaksiObat) {
                 this.scope = $scope;
                 this.state = $state;
                 this.stateParams = $stateParams;
                 this.q = $q;
-                this.dokterService = dokterService;
-                this.adminService = adminService;
+                this.Obat = Obat;
+                this.Riwayat = Riwayat;
+                this.TransaksiObat = TransaksiObat;
             }
 
             $onInit() {
@@ -38,10 +39,10 @@ angular.module('smartdokter')
                         });
 
                         let qTemp = [
-                            this.dokterService.addRiwayat(_data)
+                            this.Riwayat.addRiwayat(_data)
                         ];
                         this.scope.obatDipilih.forEach(obat => {
-                            qTemp.push(this.dokterService.transaksiObat({
+                            qTemp.push(this.TransaksiObat.addRiwayat({
                                 idObat: obat.id,
                                 idPendaftaran: this.stateParams.data.id
                             }));
@@ -55,7 +56,7 @@ angular.module('smartdokter')
                     }
                 };
 
-                this.adminService.getAllObatByIdDokter()
+                this.Obat.getAllObatByIdDokter()
                     .then((res) => {
                         this.scope.obats = res;
                     });

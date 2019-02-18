@@ -1,24 +1,25 @@
 angular.module('smartdokter')
     .component('dokter', {
         template: require('./dokter.html'),
-        controller: ['$scope', '$rootScope', '$state', 'dokterService', class dokter {
-            constructor($scope, $rootScope, $state, dokterService) {
+        controller: ['$scope', '$rootScope', '$state', 'Dokter', 'Auth', class dokter {
+            constructor($scope, $rootScope, $state, Dokter, Auth) {
                 this.scope = $scope;
                 this.rootScope = $rootScope;
-                this.dokterService = dokterService;
                 this.state = $state;
+                this.Dokter = Dokter;
+                this.Auth = Auth;
             }
 
             $onInit() {
                 this.state.go('dokter.patients');
 
-                this.dokterService.getDokterByEmail(this.rootScope.globals.currentUser.email)
+                this.Dokter.getDokterByEmail(this.rootScope.globals.currentUser.email)
                     .then((res) => {
                         this.scope.data = res;
                     });
 
                 this.scope.logout = () => {
-                    this.dokterService.logout();
+                    this.Auth.logout();
                     this.state.go('login');
                 };
             }

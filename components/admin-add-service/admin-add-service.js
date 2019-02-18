@@ -1,15 +1,16 @@
 angular.module('smartdokter')
     .component('adminAddService', {
         template: require('./admin-add-service.html'),
-        controller: ['$scope', '$state', 'adminService', class adminAddService {
-            constructor($scope, $state, adminService) {
+        controller: ['$scope', '$state', 'Pasien', 'Pendaftaran', class adminAddService {
+            constructor($scope, $state, Pasien, Pendaftaran) {
                 this.scope = $scope;
                 this.state = $state;
-                this.adminService = adminService;
+                this.Pasien = Pasien;
+                this.Pendaftaran = Pendaftaran;
             }
 
             $onInit() {
-                this.adminService.getAllDataPasiens()
+                this.Pasien.getAllDataPasiens()
                     .then((res) => {
                         this.scope.patients = res;
                     });
@@ -31,7 +32,7 @@ angular.module('smartdokter')
                         }
 
                         // post ke server
-                        this.adminService.addPendaftaran(data)
+                        this.Pendaftaran.addPendaftaran(data)
                             .then(() => {
                                 this.state.go('admin.services');
                             });

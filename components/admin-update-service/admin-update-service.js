@@ -1,17 +1,18 @@
 angular.module('smartdokter')
     .component('adminUpdateService', {
         template: require('./admin-update-service.html'),
-        controller: ['$scope', '$state', '$stateParams', 'adminService', class adminUpdateService {
-            constructor($scope, $state, $stateParams, adminService) {
+        controller: ['$scope', '$state', '$stateParams', 'Pasien', 'Pendaftaran', class adminUpdateService {
+            constructor($scope, $state, $stateParams, Pasien, Pendaftaran) {
                 console.log('adminUpdateService terbuka');
                 this.scope = $scope;
                 this.state = $state;
                 this.stateParams = $stateParams;
-                this.adminService = adminService;
+                this.Pasien = Pasien;
+                this.Pendaftaran = Pendaftaran;
             }
 
             $onInit() {
-                this.adminService.getAllDataPasiens()
+                this.Pasien.getAllDataPasiens()
                     .then((res) => {
                         this.scope.patients = res;
                     })
@@ -44,7 +45,7 @@ angular.module('smartdokter')
                         });
 
                         // put ke server
-                        this.adminService.updatePendaftaran(_data)
+                        this.Pendaftaran.updatePendaftaran(_data)
                             .then(() => {
                                 this.state.go('admin.services');
                             });

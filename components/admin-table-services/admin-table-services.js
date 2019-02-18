@@ -1,23 +1,24 @@
 angular.module('smartdokter')
     .component('adminTableServices', {
         template: require('./admin-table-services.html'),
-        controller: ['$scope', '$q', '$state', 'adminService', 'dokterService', class adminTableServices {
-            constructor($scope, $q, $state, adminService, dokterService) {
+        controller: ['$scope', '$q', '$state', 'Pendaftaran', 'Pasien', 'Dokter', class adminTableServices {
+            constructor($scope, $q, $state, Pendaftaran, Pasien, Dokter) {
                 this.scope = $scope;
                 this.q = $q;
                 this.state = $state;
-                this.adminService = adminService;
-                this.dokterService = dokterService;
+                this.Pendaftaran = Pendaftaran;
+                this.Pasien = Pasien;
+                this.Dokter = Dokter;
             }
 
             updateData() {
                 this.scope.data = [];
-                this.adminService.getAllDaftarAntris()
+                this.Pendaftaran.getAllDaftarAntris()
                     .then((res) => {
                         res.forEach((antri) => {
                             this.q.all([
-                                this.adminService.getDataPasienById(antri.idPasien),
-                                this.dokterService.getDokterById(antri.idDokter)
+                                this.Pasien.getDataPasienById(antri.idPasien),
+                                this.Dokter.getDokterById(antri.idDokter)
                             ])
                                 .then((res) => {
                                     let temp = Object.assign(antri, {
@@ -42,7 +43,7 @@ angular.module('smartdokter')
 
                 this.scope.delete = (id) => {
                     if (confirm('Are you sure?')) {
-                        this.adminService.deletePendaftaranById(id)
+                        this.Pendaftaran.deletePendaftaranById(id)
                             .then(() => {
                                 this.updateData();
                             });

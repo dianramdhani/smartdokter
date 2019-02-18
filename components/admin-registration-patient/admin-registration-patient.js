@@ -1,11 +1,11 @@
 angular.module('smartdokter')
     .component('adminRegistrationPatient', {
         template: require('./admin-registration-patient.html'),
-        controller: ['$scope', '$location', 'adminService', class adminRegistrationPatient {
-            constructor($scope, $location, adminService) {
+        controller: ['$scope', '$location', 'Pasien', class adminRegistrationPatient {
+            constructor($scope, $location, Pasien) {
                 this.scope = $scope;
                 this.location = $location;
-                this.adminService = adminService;
+                this.Pasien = Pasien;
             }
 
             $onInit() {
@@ -26,7 +26,7 @@ angular.module('smartdokter')
                         }
 
                         // post ke server
-                        this.adminService.addNewDataPasien(data)
+                        this.Pasien.addNewDataPasien(data)
                             .then(() => {
                                 this.location.path('/admin/patient');
                             });

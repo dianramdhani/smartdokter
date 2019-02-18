@@ -1,11 +1,11 @@
 angular.module('smartdokter')
     .component('adminAddObat', {
         template: require('./admin-add-obat.html'),
-        controller: ['$state', '$scope', 'adminService', class adminAddObat {
-            constructor($state, $scope, adminService) {
+        controller: ['$state', '$scope', 'Obat', class adminAddObat {
+            constructor($state, $scope, Obat) {
                 this.state = $state;
                 this.scope = $scope;
-                this.adminService = adminService;
+                this.Obat = Obat;
             }
 
             $onInit() {
@@ -26,7 +26,7 @@ angular.module('smartdokter')
                         }
 
                         // post ke server
-                        this.adminService.addNewObat(data)
+                        this.Obat.addNewObat(data)
                             .then(() => {
                                 this.state.go('admin.obats');
                             });
