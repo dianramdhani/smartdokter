@@ -33,6 +33,7 @@
         /**
          * Mengambil data riwayat berdasar id pendaftaran.
          * @param {Number} id - Id pendaftaran.
+         * @returns {Object} - Data riwayat.
          */
         function getRiwayatByIdPendaftaran(id) {
             let q = $q.defer();
@@ -45,29 +46,42 @@
         }
 
         /**
-         * Mengambil data riwayat berdasar id pasien.
-         * @param {Number} id - Id pasien.
-         * @returns {Object} - Data riwayat.
+         * Mengambil seluruh riwayat pasien.
+         * @returns {Array} - Seluruh data pasien.
          */
-        function getRiwayatByIdPasien(id) {
+        function getAllRiwayats() {
             let q = $q.defer();
-            $http.get(`${URL_SERVER}/riwayat/idPasien/${id}`)
+            $http.get(`${URL_SERVER}/riwayat`)
                 .then((res) => {
                     res = res.data;
-                    q.resolve(res);
+                    q.resolve(res)
                 });
             return q.promise;
         }
 
         /**
          * Mengambil seluruh data riwayat berdasar id dokter yang di ambil dari Auth.
+         * @returns {Array} - Seluruh data riwayat.
          */
         function getRiwayatByIdDokter() {
             let q = $q.defer();
-            $http.get(`${URL_SERVER}/riwayat`)
+            getAllRiwayats()
                 .then((res) => {
-                    res = res.data;
                     q.resolve(res.filter(riwayat => riwayat.idDokter === Auth.getCurrentUser().id))
+                });
+            return q.promise;
+        }
+
+        /**
+         * Mengambil data riwayat berdasar id pasien.
+         * @param {Number} id - Id pasien.
+         * @returns {Object} - Data riwayat.
+         */
+        function getRiwayatByIdPasien(id) {
+            let q = $q.defer();
+            getRiwayatByIdDokter()
+                .then((res) => {
+                    q.resolve(res.filter(riwayat => riwayat.idPasien === Number(id)));
                 });
             return q.promise;
         }

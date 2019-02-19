@@ -21,7 +21,12 @@
         <td>{{_data.penyakit}}</td>
         <td>{{_data.nomorAntrian}}</td>
         <td>{{_data.tanggalKunjungan | date}}</td>
-        <td><a ui-sref="dokter.resumePatient({id:_data.idPasien})">Resume</a></td>
+        <td>
+            <a class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
+                ui-sref="dokter.resumePatient({id:_data.idPasien})">
+                Resume
+            </a>
+        </td>
 
         <td ng-show="_data.status === 'Has Been Treatment'">{{_data.status}}</td>
         <td ng-show="_data.status === 'Waiting'">

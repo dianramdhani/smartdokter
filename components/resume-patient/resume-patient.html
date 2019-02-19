@@ -1,1 +1,26 @@
-resume-patient terbuka
+<h2>Patient / {{dataPasien.nama}}</h2>
+<hr>
+
+<table class="w3-table-all">
+    <tr>
+        <th>Date of Service</th>
+        <th>Diagnose</th>
+        <th>Action</th>
+        <th>Recipe</th>
+        <th>Total Bill</th>
+        <th>Doctor</th>
+    </tr>
+    <tr ng-repeat="_data in data track by _data.id">
+        <td>{{_data.dataPendaftaran.tanggalKunjungan | date}}</td>
+        <td>{{_data.diagnosa}}</td>
+        <td>{{_data.tindakan}}</td>
+        <td>
+            <span ng-repeat="dataTransaksiObat in _data.dataTransaksiObat track by dataTransaksiObat.id">
+                {{dataTransaksiObat.dataObat.namaObat}}-{{dataTransaksiObat.dataObat.harga}}<span
+                    ng-hide="$index === (_data.dataTransaksiObat.length - 1)">,</span>
+            </span>
+        </td>
+        <td>{{_data.totalBiaya}}</td>
+        <td>{{_data.dataDokter.nama}}</td>
+    </tr>
+</table>

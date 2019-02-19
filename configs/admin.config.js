@@ -11,6 +11,7 @@ angular.module('smartdokter')
             { name: 'admin.addObat', url: '/obat/add', component: 'adminAddObat' },
             { name: 'admin.payments', url: '/payment', component: 'adminTablePayments' },
             { name: 'admin.detailPayment', url: '/payment/detail/{riwayat:json}', component: 'adminPaymentDetail' },
+            { name: 'admin.resumePatient', url: '/patient/resume/{id}', component: 'resumePatient' },
         ];
 
         states.forEach(function (state) {

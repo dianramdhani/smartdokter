@@ -33,8 +33,8 @@
                     });
                     $scope.data.dataTransaksiObat.forEach(_dataTransaksiObat => {
                         Obat.getObatById(_dataTransaksiObat.idObat)
-                            .then((res) => {
-                                _dataTransaksiObat = Object.assign(_dataTransaksiObat, { dataObat: res });
+                            .then((dataObat) => {
+                                _dataTransaksiObat = Object.assign(_dataTransaksiObat, { dataObat });
                             });
                     });
                     console.log($scope.data);
