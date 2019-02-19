@@ -19,5 +19,11 @@
     <br>
     Action: {{data.tindakan}}
     <br>
+    Recipe:
+    <br>
+    <span ng-repeat="_dataTransaksiObat in data.dataTransaksiObat track by _dataTransaksiObat.id">
+        {{_dataTransaksiObat.dataObat.namaObat}} {{_dataTransaksiObat.dataObat.harga}}
+        <br>
+    </span>
     Total Bill: {{data.totalBiaya}}
 </p>

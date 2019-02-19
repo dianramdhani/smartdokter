@@ -12,13 +12,14 @@
         // seluruh method di service
         this.addNewObat = addNewObat;
         this.getAllObatByIdDokter = getAllObatByIdDokter;
+        this.getObatById = getObatById;
 
         /**
          * Menambah data obat.
          * @param {Object} data - Data obat.
          */
         function addNewObat(data) {
-            var q = $q.defer();
+            let q = $q.defer();
             data['idDokter'] = Auth.getCurrentUser().id;
             $http.post(`${URL_SERVER}/obat`, data)
                 .then((res) => {
@@ -38,6 +39,19 @@
                 .then((res) => {
                     res = res.data;
                     q.resolve(res.filter(obat => obat.idDokter === Auth.getCurrentUser().id));
+                });
+            return q.promise;
+        }
+
+        /**
+         * Mengambil data obat berdasar id obat.
+         * @param {Number} id - Id obat.
+         */
+        function getObatById(id) {
+            let q = $q.defer();
+            getAllObatByIdDokter()
+                .then((res) => {
+                    q.resolve(res.find(obat => obat.id === id));
                 });
             return q.promise;
         }

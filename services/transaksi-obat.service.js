@@ -11,6 +11,7 @@
 
         // seluruh method di service
         this.addRiwayat = addRiwayat;
+        this.getTransaksiObatByIdAntrian = getTransaksiObatByIdAntrian;
 
         /**
          * Menyimpan data transaksi obat.
@@ -22,6 +23,20 @@
                 .then((res) => {
                     res = res.data;
                     q.resolve(res);
+                });
+            return q.promise;
+        }
+
+        /**
+         * Mengambil data transaksi obat berdasar id pendaftaran.
+         * @param {Number} id - Id pendaftaran.
+         */
+        function getTransaksiObatByIdAntrian(id){
+            let q = $q.defer();
+            $http.get(`${URL_SERVER}/transaksiObat/idPendaftaran/${id}`)
+                .then((res) => {
+                    res = res.data;
+                    q.resolve(res)
                 });
             return q.promise;
         }
