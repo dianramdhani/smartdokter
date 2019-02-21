@@ -49,7 +49,7 @@
                     q.resolve(true);
                 })
                 .catch(() => {
-                    q.resolve(false);
+                    alert('Login failed!');
                 });
             return q.promise;
         }

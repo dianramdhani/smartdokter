@@ -37,7 +37,6 @@
                                 _dataTransaksiObat = Object.assign(_dataTransaksiObat, { dataObat });
                             });
                     });
-                    console.log($scope.data);
                 });
 
         };

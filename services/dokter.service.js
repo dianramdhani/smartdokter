@@ -21,7 +21,7 @@
          * @returns {Array} - Seluruh data dokter.
          */
         function getAllDokters() {
-            var q = $q.defer();
+            let q = $q.defer();
             $http.get(`${URL_SERVER}/dokter`)
                 .then((res) => {
                     res = res.data;
@@ -36,7 +36,7 @@
          * @returns {Object} - Data dokter.
          */
         function getDokterByEmail(email) {
-            var q = $q.defer();
+            let q = $q.defer();
             $http.get(`${URL_SERVER}/dokter/email`, { params: { email } })
                 .then((res) => {
                     res = res.data;
@@ -51,7 +51,7 @@
          * @returns {Array} - Array dari object data dokter.
          */
         function getDokterByNama(nama) {
-            var q = $q.defer();
+            let q = $q.defer();
             $http.get(`${URL_SERVER}/dokter/nama/${nama}`)
                 .then((res) => {
                     res = res.data;
@@ -66,7 +66,7 @@
          * @returns {Object} - Status.
          */
         function addNewDokter(data) {
-            var q = $q.defer();
+            let q = $q.defer();
             $http.post(`${URL_SERVER}/registrasi`, data)
                 .then((res) => {
                     res = res.data;
@@ -81,7 +81,7 @@
          * @returns {Object} - Data dokter.
          */
         function getDokterById(id) {
-            var q = $q.defer();
+            let q = $q.defer();
             getAllDokters()
                 .then((res) => {
                     q.resolve(res.find(dataDokter => dataDokter.idDok === id));

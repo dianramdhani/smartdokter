@@ -31,6 +31,7 @@ require('../services/pasien.service');
 require('../services/pendaftaran.service');
 require('../services/riwayat.service');
 require('../services/transaksi-obat.service');
+require('../services/fisik.service');
 
 // component
 require('../components/login/login');

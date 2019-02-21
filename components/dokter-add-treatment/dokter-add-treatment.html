@@ -1,53 +1,79 @@
-<div class="w3-card-4 w3-display-middle" style="width: 100%; max-width: 600px;">
-    <header class="w3-container w3-blue">
-        <h3>Add Treatment</h3>
-    </header>
+<h2>Add Treatment</h2>
+<hr>
 
-    <div class="w3-container" style="background-color: white;">
-        <label>Diagnose</label>
-        <textarea class="w3-input w3-border" ng-class="data.diagnosa? '': 'w3-pale-red'"
-            ng-model="data.diagnosa"></textarea>
-        <label>Action</label>
-        <textarea class="w3-input w3-border" ng-class="data.tindakan? '': 'w3-pale-red'"
-            ng-model="data.tindakan"></textarea>
-        <!-- <label>Total Biaya</label>
-        <input class="w3-input w3-border" type="number" ng-class="data.totalBiaya? '': 'w3-pale-red'"
-            ng-model="data.totalBiaya"> -->
+<div class="w3-container" style="background-color: white;">
+    <h3>Measurement</h3>
 
-        <!-- testing -->
+    <label>Date of Measurement</label>
+    <input class="w3-input w3-border" type="date" ng-class="dataFisik.tanggalData? '': 'w3-pale-red'"
+        ng-model="dataFisik.tanggalData">
 
-        <label>Drug</label>
-        <select class="w3-select w3-border" ng-class="obatDipilih.length !== 0? '': 'w3-pale-red'" ng-model="obat">
-            <option value="" disabled selected>Select your option</option>
-            <option ng-repeat="_obat in obats track by _obat.id" value="{{_obat}}">
-                {{_obat.namaObat}} - {{_obat.harga}}
-            </option>
-        </select>
-        <button class="w3-button w3-blue w3-right" ng-click="tambahObat(obat)">Add</button>
-        <table class="w3-table-all">
-            <tr>
-                <th>Drug Name</th>
-                <th>Price</th>
-                <th>Delete</th>
-            </tr>
-            <tr ng-repeat="_obat in obatDipilih | orderBy: 'namaObat' track by $index">
-                <td>{{_obat.namaObat}}</td>
-                <td class="w3-right">{{_obat.harga}}</td>
-                <td>
-                    <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
-                        ng-click="deleteObat($index)">Delete</button>
-                </td>
-            </tr>
-            <tr>
-                <th>Total Bill</th>
-                <th class="w3-right">{{totalBiaya}}</th>
-                <th></th>
-            </tr>
-        </table>
+    <label>Weight (kg)</label>
+    <input class="w3-input w3-border" type="number" ng-class="dataFisik.beratBadan? '': 'w3-pale-red'"
+        ng-model="dataFisik.beratBadan">
 
-        <p>
-            <button class="w3-button w3-blue" ng-click="addTreatment(data)">Add Treatment</button>
-            <a class="w3-button w3-red" ui-sref="dokter.patients">Cancel</a>
-        </p>
-    </div>
+    <label>Height (cm)</label>
+    <input class="w3-input w3-border" type="number" ng-class="dataFisik.tinggiBadan? '': 'w3-pale-red'"
+        ng-model="dataFisik.tinggiBadan">
+
+    <label>Temperature (C)</label>
+    <input class="w3-input w3-border" type="number" ng-class="dataFisik.suhu? '': 'w3-pale-red'"
+        ng-model="dataFisik.suhu">
+
+    <label>Heart Rate (bpm)</label>
+    <input class="w3-input w3-border" type="number" ng-class="dataFisik.detakJantung? '': 'w3-pale-red'"
+        ng-model="dataFisik.detakJantung">
+
+    <label>Blood Pressure (mm/Hg)</label>
+    <input class="w3-input w3-border" type="text" ng-class="dataFisik.tekananDarah? '': 'w3-pale-red'"
+        ng-model="dataFisik.tekananDarah">
+
+    <h3>Examination</h3>
+
+    <label>Diagnose</label>
+    <textarea class="w3-input w3-border" ng-class="dataRiwayat.diagnosa? '': 'w3-pale-red'"
+        ng-model="dataRiwayat.diagnosa"></textarea>
+
+    <label>Action</label>
+    <textarea class="w3-input w3-border" ng-class="dataRiwayat.tindakan? '': 'w3-pale-red'"
+        ng-model="dataRiwayat.tindakan"></textarea>
+
+    <label>Drug</label>
+    <select class="w3-select w3-border" ng-class="dataTransaksiObat.length !== 0? '': 'w3-pale-red'"
+        ng-model="tempDataObat">
+        <option value="" disabled selected>Select your option</option>
+        <option ng-repeat="_dataObat in dataObat track by _dataObat.id" value="{{_dataObat}}">
+            {{_dataObat.namaObat}} - {{_dataObat.harga}}
+        </option>
+    </select>
+    <button class="w3-button w3-blue" ng-click="addObat(tempDataObat)">Add</button>
+    <br>
+    <br>
+    <table class="w3-table-all">
+        <tr>
+            <th>Drug Name</th>
+            <th>Price</th>
+            <th>Delete</th>
+        </tr>
+        <tr ng-repeat="_dataTransaksiObat in dataTransaksiObat | orderBy: 'namaObat' track by $index">
+            <td>{{_dataTransaksiObat.namaObat}}</td>
+            <td>{{_dataTransaksiObat.harga}}</td>
+            <td>
+                <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small"
+                    ng-click="deleteObat($index)">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <th>Total Bill</th>
+            <th class="w3-right">{{dataRiwayat.totalBiaya}}</th>
+            <th></th>
+        </tr>
+    </table>
+
+    <p>
+        <button class="w3-button w3-blue" ng-click="addTreatment(dataRiwayat, dataTransaksiObat, dataFisik)">
+            Add Treatment
+        </button>
+        <a class="w3-button w3-red" ui-sref="dokter.patients">Cancel</a>
+    </p>
 </div>

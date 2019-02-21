@@ -1,84 +1,119 @@
-angular.module('smartdokter')
-    .component('dokterAddTreatment', {
-        template: require('./dokter-add-treatment.html'),
-        controller: ['$scope', '$state', '$stateParams', '$q', 'Obat', 'Riwayat', 'TransaksiObat', class dokterAddTreatment {
-            constructor($scope, $state, $stateParams, $q, Obat, Riwayat, TransaksiObat) {
-                this.scope = $scope;
-                this.state = $state;
-                this.stateParams = $stateParams;
-                this.q = $q;
-                this.Obat = Obat;
-                this.Riwayat = Riwayat;
-                this.TransaksiObat = TransaksiObat;
-            }
+(function () {
+    'use strict';
 
-            $onInit() {
-                this.scope.addTreatment = (data) => {
-                    data['totalBiaya'] = this.scope.totalBiaya;
+    // Usage:
+    // Dipanggil oleh a-href add treatment di tabel patient list dokter.
+    // Creates:
+    // Menampilkan form add treatment.
 
+    angular
+        .module('smartdokter')
+        .component('dokterAddTreatment', {
+            template: require('./dokter-add-treatment.html'),
+            controller: dokterAddTreatmentController,
+            controllerAs: '$ctrl',
+            bindings: {
+                Binding: '=',
+            },
+        });
+
+    dokterAddTreatmentController.$inject = ['$scope', '$state', '$stateParams', '$q', 'Obat', 'Riwayat', 'TransaksiObat', 'Fisik'];
+    function dokterAddTreatmentController($scope, $state, $stateParams, $q, Obat, Riwayat, TransaksiObat, Fisik) {
+        var $ctrl = this;
+
+        $ctrl.$onInit = function () {
+            // inisialisasi $scope
+            $scope.dataRiwayat = {};
+            $scope.dataTransaksiObat = [];
+
+            // proses untuk form obat
+            Obat.getAllObatByIdDokter()
+                .then((dataObat) => {
+                    $scope.dataObat = dataObat;
+                });
+            $scope.addObat = (data) => {
+                if (data !== null) {
+                    $scope.dataTransaksiObat.push(angular.fromJson(data));
+                }
+            };
+            $scope.deleteObat = (index) => {
+                $scope.dataTransaksiObat.splice(index, 1);
+            };
+            $scope.$watchCollection('dataTransaksiObat', (newVal) => {
+                let totalBiaya = 0;
+                newVal.forEach((obat) => {
+                    totalBiaya = totalBiaya + obat.harga;
+                });
+                $scope.dataRiwayat['totalBiaya'] = totalBiaya;
+            });
+
+            $scope.addTreatment = (dataRiwayat, dataTransaksiObat, dataFisik) => {
+                // cek dataRiwayat
+                if (!checkParams(dataRiwayat, ['diagnosa', 'tindakan', 'totalBiaya'])) {
+                    alert('Please fill in correctly!');
+                    return;
+                }
+
+                // cek dataFisik
+                if (!checkParams(dataFisik, ['beratBadan', 'detakJantung', 'suhu', 'tanggalData', 'tekananDarah', 'tinggiBadan'])) {
+                    alert('Please fill in correctly!');
+                    return;
+                }
+
+                const TEMPLATE_DATA = {
+                    idPasien: $stateParams.data.idPasien,
+                    idDokter: $stateParams.data.idDokter,
+                    idPendaftaran: $stateParams.data.id
+                };
+
+                // persiapan dataTransaksiObat
+                let postDataTransaksiObat = [];
+                dataTransaksiObat.forEach(_dataTransaksiObat => {
+                    postDataTransaksiObat.push({ idObat: _dataTransaksiObat.id, idPendaftaran: TEMPLATE_DATA.idPendaftaran })
+                });
+
+                // persiapan dataRiwayat
+                dataRiwayat = Object.assign(TEMPLATE_DATA, dataRiwayat);
+
+                // persiapan dataFisik
+                dataFisik = Object.assign(TEMPLATE_DATA, dataFisik);
+
+                // tambah data ke TransaksiObat, Riwayat, dan Fisik
+                let q = [];
+                postDataTransaksiObat.forEach(_dataTransaksiObat => {
+                    q.push(TransaksiObat.addRiwayat(_dataTransaksiObat));
+                });
+                q.push(Riwayat.addRiwayat(dataRiwayat));
+                q.push(Fisik.addDataFisik(dataFisik));
+                $q.all(q)
+                    .then(() => {
+                        $state.go('dokter.patients');
+                    });
+
+                /**
+                 * Cek parameter di object.
+                 * @param {Object} data - Data yang di cek.
+                 * @param {Array} propertyCheckers - Parameter di object data.
+                 * @returns {Boolean} - True jika seluruh parameter di object terpenuhi dan sebaliknya.
+                 */
+                function checkParams(data, propertyCheckers) {
                     if (typeof data !== 'undefined') {
-                        // check seluruh properti tidak boleh kosong
-                        const dataPropertyChecker = ['diagnosa', 'tindakan', 'totalBiaya'];
-                        for (const property of dataPropertyChecker) {
-                            if (!data.hasOwnProperty(property)) {
-                                alert('Please fill in correctly!');
-                                return;
-                            } else {
+                        for (const property of propertyCheckers) {
+                            if (data.hasOwnProperty(property)) {
                                 if (data[property] === '') {
-                                    alert('Please fill in correctly!');
-                                    return;
+                                    return false;
                                 }
+                            } else {
+                                return false;
                             }
                         }
-
-                        // post ke server
-                        let _data = Object.assign(data, {
-                            idDokter: this.stateParams.data.idDokter,
-                            idPasien: this.stateParams.data.idPasien,
-                            idPendaftaran: this.stateParams.data.id
-                        });
-
-                        let qTemp = [
-                            this.Riwayat.addRiwayat(_data)
-                        ];
-                        this.scope.obatDipilih.forEach(obat => {
-                            qTemp.push(this.TransaksiObat.addRiwayat({
-                                idObat: obat.id,
-                                idPendaftaran: this.stateParams.data.id
-                            }));
-                        });
-                        this.q.all(qTemp)
-                            .then(() => {
-                                this.state.go('dokter.patients');
-                            });
+                        return true;
                     } else {
-                        alert('Please fill in correctly!');
+                        return false;
                     }
-                };
+                }
+            };
 
-                this.Obat.getAllObatByIdDokter()
-                    .then((res) => {
-                        this.scope.obats = res;
-                    });
-
-                this.scope.obatDipilih = [];
-                this.scope.tambahObat = (obat) => {
-                    if (obat) {
-                        this.scope.obatDipilih.push(angular.fromJson(obat));
-                    }
-                };
-
-                this.scope.deleteObat = (index) => {
-                    this.scope.obatDipilih.splice(index, 1);
-                };
-
-                this.scope.$watchCollection('obatDipilih', (newVal) => {
-                    let temp = 0;
-                    newVal.forEach((obat) => {
-                        temp = temp + obat.harga;
-                    });
-                    this.scope.totalBiaya = temp;
-                });
-            }
-        }]
-    });
+        };
+    }
+})();
