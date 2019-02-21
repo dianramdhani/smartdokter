@@ -1,37 +1,48 @@
-angular.module('smartdokter')
-    .component('adminUpdatePatient', {
-        template: require('./admin-update-patient.html'),
-        controller: ['$scope', '$stateParams', '$state', 'Pasien', class adminUpdatePatient {
-            constructor($scope, $stateParams, $state, Pasien) {
-                this.scope = $scope;
-                this.state = $state;
-                this.Pasien = Pasien;
-                this.scope.data = angular.fromJson($stateParams.data);
-                this.scope.data.tanggalDaftar = new Date(this.scope.data.tanggalDaftar);
-            }
+(function () {
+    'use strict';
 
-            $onInit() {
-                this.scope.update = (data) => {
-                    if (typeof data !== 'undefined') {
-                        // check seluruh properti tidak boleh kosong
-                        const dataPropertyChecker = ['alamat', 'gender', 'nama', 'tanggalDaftar', 'telefon'];
-                        for (const property of dataPropertyChecker) {
-                            if (!data.hasOwnProperty(property)) {
+    // Usage:
+    // Dibuka oleh admin-table-patients dengan panggil a-href update di tabel pasien.
+    // Creates:
+    // Membuat form update data pasien.
+
+    angular
+        .module('smartdokter')
+        .component('adminUpdatePatient', {
+            template: require('./admin-update-patient.html'),
+            controller: adminUpdatePatientController,
+            controllerAs: '$ctrl'
+        });
+
+    adminUpdatePatientController.$inject = ['$scope', '$stateParams', '$state', 'Pasien'];
+    function adminUpdatePatientController($scope, $stateParams, $state, Pasien) {
+        var $ctrl = this;
+
+        $ctrl.$onInit = function () {
+            $scope.data = angular.fromJson($stateParams.data);
+            $scope.data.tanggalDaftar = new Date($scope.data.tanggalDaftar);
+
+            $scope.update = (data) => {
+                if (typeof data !== 'undefined') {
+                    // check seluruh properti tidak boleh kosong
+                    const dataPropertyChecker = ['alamat', 'gender', 'nama', 'tanggalDaftar', 'telefon'];
+                    for (const property of dataPropertyChecker) {
+                        if (!data.hasOwnProperty(property)) {
+                            return;
+                        } else {
+                            if (data[property] === '') {
                                 return;
-                            } else {
-                                if (data[property] === '') {
-                                    return;
-                                }
                             }
                         }
-
-                        // put ke server
-                        this.Pasien.updatePasien(data)
-                            .then(() => {
-                                this.state.go('admin.patients');
-                            });
                     }
-                };
-            }
-        }]
-    });
+
+                    // put ke server
+                    Pasien.updatePasien(data)
+                        .then(() => {
+                            $state.go('admin.patients');
+                        });
+                }
+            };
+        };
+    }
+})();

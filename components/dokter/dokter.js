@@ -1,27 +1,35 @@
-angular.module('smartdokter')
-    .component('dokter', {
-        template: require('./dokter.html'),
-        controller: ['$scope', '$rootScope', '$state', 'Dokter', 'Auth', class dokter {
-            constructor($scope, $rootScope, $state, Dokter, Auth) {
-                this.scope = $scope;
-                this.rootScope = $rootScope;
-                this.state = $state;
-                this.Dokter = Dokter;
-                this.Auth = Auth;
-            }
+(function () {
+    'use strict';
 
-            $onInit() {
-                this.state.go('dokter.patients');
+    // Usage:
+    // Dipanggil setelah tampilan login dengan login dokter.
+    // Creates:
+    // Container untuk tampilan dokter berisi side bar dan content.
 
-                this.Dokter.getDokterByEmail(this.rootScope.globals.currentUser.email)
-                    .then((res) => {
-                        this.scope.data = res;
-                    });
+    angular
+        .module('smartdokter')
+        .component('dokter', {
+            template: require('./dokter.html'),
+            controller: dokterController,
+            controllerAs: '$ctrl'
+        });
 
-                this.scope.logout = () => {
-                    this.Auth.logout();
-                    this.state.go('login');
-                };
-            }
-        }]
-    });
+    dokterController.$inject = ['$scope', '$rootScope', '$state', 'Dokter', 'Auth'];
+    function dokterController($scope, $rootScope, $state, Dokter, Auth) {
+        var $ctrl = this;
+
+        $ctrl.$onInit = function () {
+            $state.go('dokter.patients');
+
+            Dokter.getDokterByEmail($rootScope.globals.currentUser.email)
+                .then((res) => {
+                    $scope.data = res;
+                });
+
+            $scope.logout = () => {
+                Auth.logout();
+                $state.go('login');
+            };
+        };
+    }
+})();

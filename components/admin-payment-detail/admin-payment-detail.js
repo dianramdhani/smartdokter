@@ -2,7 +2,7 @@
     'use strict';
 
     // Usage:
-    // Dipanggil oleh a-href di admin-table-payments.
+    // Dipanggil oleh a-href di admin-table-payments saat melihat detail payment.
     // Creates:
     // Menampilkan detail payment per id Pendaftaran.
 

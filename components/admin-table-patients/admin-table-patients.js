@@ -1,35 +1,45 @@
-angular.module('smartdokter')
-    .component('adminTablePatients', {
-        template: require('./admin-table-patients.html'),
-        controller: ['$scope', '$state', 'Pasien', class adminTablePatients {
-            constructor($scope, $state, Pasien) {
-                this.scope = $scope;
-                this.state = $state;
-                this.Pasien = Pasien;
-            }
+(function () {
+    'use strict';
 
-            updateData() {
-                this.Pasien.getAllDataPasiens()
-                    .then((res) => {
-                        this.scope.data = res;
-                    });
-            }
+    // Usage:
+    // Dipanggil oleh komponen admin saat menekan a-href patient di side bar.
+    // Creates:
+    // Menghasilkan tabel pasien.
 
-            $onInit() {
-                this.updateData();
+    angular
+        .module('smartdokter')
+        .component('adminTablePatients', {
+            template: require('./admin-table-patients.html'),
+            controller: adminTablePatientsController,
+            controllerAs: '$ctrl'
+        });
 
-                this.scope.update = (data) => {
-                    this.state.go('admin.updatePatient', { data });
-                };
+    adminTablePatientsController.$inject = ['$scope', '$state', 'Pasien'];
+    function adminTablePatientsController($scope, $state, Pasien) {
+        var $ctrl = this;
 
-                this.scope.delete = (id) => {
-                    if (confirm('Are you sure?')) {
-                        this.Pasien.deletePasienById(id)
-                            .then(() => {
-                                this.updateData();
-                            });
-                    }
-                };
-            }
-        }]
-    });
+        function updateData() {
+            Pasien.getAllDataPasiens()
+                .then((res) => {
+                    $scope.data = res;
+                });
+        }
+
+        $ctrl.$onInit = function () {
+            updateData();
+
+            $scope.update = (data) => {
+                $state.go('admin.updatePatient', { data });
+            };
+
+            $scope.delete = (id) => {
+                if (confirm('Are you sure?')) {
+                    Pasien.deletePasienById(id)
+                        .then(() => {
+                            updateData();
+                        });
+                }
+            };
+        };
+    }
+})();

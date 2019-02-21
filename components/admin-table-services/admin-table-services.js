@@ -1,57 +1,63 @@
-angular.module('smartdokter')
-    .component('adminTableServices', {
-        template: require('./admin-table-services.html'),
-        controller: ['$scope', '$q', '$state', 'Pendaftaran', 'Pasien', 'Dokter', 'Riwayat', class adminTableServices {
-            constructor($scope, $q, $state, Pendaftaran, Pasien, Dokter, Riwayat) {
-                this.scope = $scope;
-                this.q = $q;
-                this.state = $state;
-                this.Pendaftaran = Pendaftaran;
-                this.Pasien = Pasien;
-                this.Dokter = Dokter;
-                this.Riwayat = Riwayat;
-            }
+(function () {
+    'use strict';
 
-            updateData() {
-                this.scope.data = [];
-                this.Pendaftaran.getPendaftaranByIdDokter()
-                    .then((res) => {
-                        res.forEach((pendaftaran) => {
-                            this.q.all([
-                                this.Pasien.getDataPasienById(pendaftaran.idPasien),
-                                this.Dokter.getDokterById(pendaftaran.idDokter),
-                                this.Riwayat.getRiwayatByIdPendaftaran(pendaftaran.id)
-                            ])
-                                .then((res) => {
-                                    let temp = Object.assign(pendaftaran, {
-                                        namaPasien: res[0].nama,
-                                        alamatPasien: res[0].alamat,
-                                        genderPasien: res[0].gender,
-                                        telefonPasien: res[0].telefon,
-                                        namaDokter: res[1].nama,
-                                        status: res[2].length === 0 ? 'Waiting' : 'Has Been Treatment'
-                                    });
-                                    this.scope.data.push(temp);
+    // Usage:
+    // Dipanggil oleh komponen admin saat menekan a-href service di side bar.
+    // Creates:
+    // Menghasilkan tabel service.
+
+    angular
+        .module('smartdokter')
+        .component('adminTableServices', {
+            template: require('./admin-table-services.html'),
+            controller: adminTableServicesController,
+            controllerAs: '$ctrl'
+        });
+
+    adminTableServicesController.$inject = ['$scope', '$q', '$state', 'Pendaftaran', 'Pasien', 'Dokter', 'Riwayat'];
+    function adminTableServicesController($scope, $q, $state, Pendaftaran, Pasien, Dokter, Riwayat) {
+        var $ctrl = this;
+
+        function updateData() {
+            $scope.data = [];
+            Pendaftaran.getPendaftaranByIdDokter()
+                .then((res) => {
+                    res.forEach((pendaftaran) => {
+                        $q.all([
+                            Pasien.getDataPasienById(pendaftaran.idPasien),
+                            Dokter.getDokterById(pendaftaran.idDokter),
+                            Riwayat.getRiwayatByIdPendaftaran(pendaftaran.id)
+                        ])
+                            .then((res) => {
+                                let temp = Object.assign(pendaftaran, {
+                                    namaPasien: res[0].nama,
+                                    alamatPasien: res[0].alamat,
+                                    genderPasien: res[0].gender,
+                                    telefonPasien: res[0].telefon,
+                                    namaDokter: res[1].nama,
+                                    status: res[2].length === 0 ? 'Waiting' : 'Has Been Treatment'
                                 });
-                        });
-                    });
-            }
-
-            $onInit() {
-                this.updateData();
-
-                this.scope.update = (data) => {
-                    this.state.go('admin.updateService', { data });
-                };
-
-                this.scope.delete = (id) => {
-                    if (confirm('Are you sure?')) {
-                        this.Pendaftaran.deletePendaftaranById(id)
-                            .then(() => {
-                                this.updateData();
+                                $scope.data.push(temp);
                             });
-                    }
+                    });
+                });
+        }
+
+        $ctrl.$onInit = function () {
+            updateData();
+
+            $scope.update = (data) => {
+                $state.go('admin.updateService', { data });
+            };
+
+            $scope.delete = (id) => {
+                if (confirm('Are you sure?')) {
+                    Pendaftaran.deletePendaftaranById(id)
+                        .then(() => {
+                            updateData();
+                        });
                 }
             }
-        }]
-    });
+        };
+    }
+})();

@@ -1,27 +1,35 @@
-angular.module('smartdokter')
-    .component('admin', {
-        template: require('./admin.html'),
-        controller: ['$state', '$scope', '$rootScope', 'Auth', 'Dokter', class admin {
-            constructor($state, $scope, $rootScope, Auth, Dokter) {
-                this.state = $state;
-                this.scope = $scope;
-                this.rootScope = $rootScope;
-                this.Auth = Auth;
-                this.Dokter = Dokter;
-            }
+(function () {
+    'use strict';
 
-            $onInit() {
-                this.state.go('admin.patients');
+    // Usage:
+    // Dipanggil setelah tampilan login dengan login admin.
+    // Creates:
+    // Container untuk tampilan admin berisi side bar dan content.
 
-                this.Dokter.getDokterByEmail(this.rootScope.globals.currentUser.email)
-                    .then((res) => {
-                        this.scope.data = res;
-                    });
+    angular
+        .module('smartdokter')
+        .component('admin', {
+            template: require('./admin.html'),
+            controller: adminController,
+            controllerAs: '$ctrl'
+        });
 
-                this.scope.logout = () => {
-                    this.Auth.logout();
-                    this.state.go('login');
-                };
-            }
-        }]
-    });
+    adminController.$inject = ['$state', '$scope', '$rootScope', 'Auth', 'Dokter'];
+    function adminController($state, $scope, $rootScope, Auth, Dokter) {
+        var $ctrl = this;
+
+        $ctrl.$onInit = function () {
+            $state.go('admin.patients');
+
+            Dokter.getDokterByEmail($rootScope.globals.currentUser.email)
+                .then((res) => {
+                    $scope.data = res;
+                });
+
+            $scope.logout = () => {
+                Auth.logout();
+                $state.go('login');
+            };
+        };
+    }
+})();
