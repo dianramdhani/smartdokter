@@ -14,8 +14,8 @@
             controllerAs: '$ctrl',
         });
 
-    adminTablePaymentsController.$inject = ['$scope', '$state', 'Riwayat', 'Pasien'];
-    function adminTablePaymentsController($scope, $state, Riwayat, Pasien) {
+    adminTablePaymentsController.$inject = ['$scope', '$state', '$q', 'Riwayat', 'Pasien', 'Pendaftaran'];
+    function adminTablePaymentsController($scope, $state, $q, Riwayat, Pasien, Pendaftaran) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -23,11 +23,18 @@
             Riwayat.getRiwayatByIdDokter()
                 .then((riwayats) => {
                     riwayats.forEach((riwayat) => {
-                        Pasien.getDataPasienById(riwayat.idPasien)
-                            .then((dataPasien) => {
-                                $scope.data.push(Object.assign(riwayat, { dataPasien }));
+                        $q.all([
+                            Pasien.getDataPasienById(riwayat.idPasien),
+                            Pendaftaran.getAntriById(riwayat.idPendaftaran)
+                        ])
+                            .then((res) => {
+                                $scope.data.push(Object.assign(riwayat, {
+                                    dataPasien: res[0],
+                                    dataPendaftaran: res[1]
+                                }));
                             });
                     });
+                    console.log($scope.data)
                 });
 
             $scope.detailPayment = (data) => {

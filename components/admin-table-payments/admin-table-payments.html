@@ -7,6 +7,8 @@
         <th>Gender</th>
         <th>Address</th>
         <th>Phone</th>
+        <th>Date of Service</th>
+        <th>Queue Number</th>
         <th>Total Bill</th>
         <th>Detail</th>
     </tr>
@@ -15,6 +17,8 @@
         <td>{{_data.dataPasien.gender}}</td>
         <td>{{_data.dataPasien.alamat}}</td>
         <td>{{_data.dataPasien.telefon}}</td>
+        <td>{{_data.dataPendaftaran.tanggalKunjungan|date}}</td>
+        <td>{{_data.dataPendaftaran.nomorAntrian}}</td>
         <td>{{_data.totalBiaya}}</td>
         <td>
             <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small" ng-click="detailPayment(_data)">
