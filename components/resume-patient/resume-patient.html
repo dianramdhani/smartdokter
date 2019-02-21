@@ -4,6 +4,14 @@
 <table class="w3-table-all">
     <tr>
         <th>Date of Service</th>
+        <th>Queue Number</th>
+        <th>Symptoms</th>
+        <th>Date of Measurement</th>
+        <th>Weight (kg)</th>
+        <th>Height (cm)</th>
+        <th>Temperature (C)</th>
+        <th>Heart Rate (bpm)</th>
+        <th>Blood Pressure (mm/Hg)</th>
         <th>Diagnose</th>
         <th>Action</th>
         <th>Recipe</th>
@@ -12,6 +20,14 @@
     </tr>
     <tr ng-repeat="_data in data track by _data.id">
         <td>{{_data.dataPendaftaran.tanggalKunjungan | date}}</td>
+        <td>{{_data.dataPendaftaran.nomorAntrian}}</td>
+        <td>{{_data.dataPendaftaran.penyakit}}</td>
+        <td>{{_data.dataFisik.tanggalData|date}}</td>
+        <td>{{_data.dataFisik.beratBadan}}</td>
+        <td>{{_data.dataFisik.tinggiBadan}}</td>
+        <td>{{_data.dataFisik.suhu}}</td>
+        <td>{{_data.dataFisik.detakJantung}}</td>
+        <td>{{_data.dataFisik.tekananDarah}}</td>
         <td>{{_data.diagnosa}}</td>
         <td>{{_data.tindakan}}</td>
         <td>

@@ -7,18 +7,18 @@
 
 <table class="w3-table-all">
     <tr>
-        <th>Name Patient</th>
-        <th>Gender</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Symptoms</th>
-        <th>Date of Service</th>
-        <th>Queue Number</th>
+        <th ng-click="orderProperty='namaPasien'">Name Patient</th>
+        <th ng-click="orderProperty='genderPasien'">Gender</th>
+        <th ng-click="orderProperty='alamatPasien'">Address</th>
+        <th ng-click="orderProperty='telefonPasien'">Phone</th>
+        <th ng-click="orderProperty='penyakit'">Symptoms</th>
+        <th ng-click="orderProperty='tanggalKunjungan'">Date of Service</th>
+        <th ng-click="orderProperty='nomorAntrian'">Queue Number</th>
         <th>Name Doctor</th>
-        <th>Status</th>
+        <th ng-click="orderProperty='status'">Status</th>
         <!-- <th>Update/Delete</th> -->
     </tr>
-    <tr ng-repeat="_data in data track by _data.id">
+    <tr ng-repeat="_data in data | orderBy: orderProperty track by _data.id">
         <td>{{_data.namaPasien}}</td>
         <td>{{_data.genderPasien}}</td>
         <td>{{_data.alamatPasien}}</td>

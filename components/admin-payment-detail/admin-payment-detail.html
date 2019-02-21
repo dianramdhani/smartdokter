@@ -1,29 +1,84 @@
 <h2>Payment / {{data.dataPasien.nama}}</h2>
 <hr>
-<p>
-    Doctor: {{data.dataDokter.nama}}
-    <br>
-    Date of Service: {{data.dataPendaftaran.tanggalKunjungan | date}}
-    <br>
-    Name: {{data.dataPasien.nama}}
-    <br>
-    Gender: {{data.dataPasien.gender}}
-    <br>
-    Address: {{data.dataPasien.alamat}}
-    <br>
-    Phone: {{data.dataPasien.telefon}}
-    <br>
-    Symptoms: {{data.dataPendaftaran.penyakit}}
-    <br>
-    Diagnose: {{data.diagnosa}}
-    <br>
-    Action: {{data.tindakan}}
-    <br>
-    Recipe:
-    <br>
-    <span ng-repeat="_dataTransaksiObat in data.dataTransaksiObat track by _dataTransaksiObat.id">
-        {{_dataTransaksiObat.dataObat.namaObat}} {{_dataTransaksiObat.dataObat.harga}}
-        <br>
-    </span>
-    Total Bill: {{data.totalBiaya}}
-</p>
+
+<table class="w3-table-all">
+    <tr>
+        <th>Doctor</th>
+        <td>{{data.dataDokter.nama}}</td>
+    </tr>
+    <tr>
+        <th>Date of Service</th>
+        <td>{{data.dataPendaftaran.tanggalKunjungan | date}}</td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>{{data.dataPasien.nama}}</td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td>{{data.dataPasien.gender}}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{data.dataPasien.alamat}}</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>{{data.dataPasien.telefon}}</td>
+    </tr>
+    <tr>
+        <th>Symptoms</th>
+        <td>{{data.dataPendaftaran.penyakit}}</td>
+    </tr>
+    <tr>
+        <th>Date of Measurement</th>
+        <td>{{data.dataFisik.tanggalData|date}}</td>
+    </tr>
+    <tr>
+        <th>Weight (kg)</th>
+        <td>{{data.dataFisik.beratBadan}}</td>
+    </tr>
+    <tr>
+        <th>Height (cm)</th>
+        <td>{{data.dataFisik.tinggiBadan}}</td>
+    </tr>
+    <tr>
+        <th>Temperature (C)</th>
+        <td>{{data.dataFisik.suhu}}</td>
+    </tr>
+    <tr>
+        <th>Heart Rate (bpm)</th>
+        <td>{{data.dataFisik.detakJantung}}</td>
+    </tr>
+    <tr>
+        <th>Blood Pressure (mm/Hg)</th>
+        <td>{{data.dataFisik.tekananDarah}}</td>
+    </tr>
+    <tr>
+        <th>Diagnose</th>
+        <td>{{data.diagnosa}}</td>
+    </tr>
+    <tr>
+        <th>Action</th>
+        <td>{{data.tindakan}}</td>
+    </tr>
+    <tr>
+        <th>Recipe</th>
+        <td>
+            <table class="w3-table-all">
+                <tr>
+                    <th>Drug Name</th>
+                    <th>Price</th>
+                </tr>
+                <tr ng-repeat="_dataTransaksiObat in data.dataTransaksiObat track by _dataTransaksiObat.id">
+                    <td>{{_dataTransaksiObat.dataObat.namaObat}}</td>
+                    <td>{{_dataTransaksiObat.dataObat.harga}}</td>
+                </tr>
+                <tr>
+                    <th>Total Bill</th>
+                    <td>{{data.totalBiaya}}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

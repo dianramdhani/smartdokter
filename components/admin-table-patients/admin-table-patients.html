@@ -7,16 +7,16 @@
 
 <table class="w3-table-all">
     <tr>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Registration Date</th>
+        <th ng-click="orderProperty='nama'">Name</th>
+        <th ng-click="orderProperty='gender'">Gender</th>
+        <th ng-click="orderProperty='alamat'">Address</th>
+        <th ng-click="orderProperty='telefon'">Phone</th>
+        <th ng-click="orderProperty='tanggalDaftar'">Registration Date</th>
         <th>Resume</th>
         <!-- <th>Update/Delete</th> -->
         <th>Update</th>
     </tr>
-    <tr ng-repeat="_data in data track by _data.id">
+    <tr ng-repeat="_data in data | orderBy: orderProperty track by _data.id">
         <td>{{_data.nama}}</td>
         <td>{{_data.gender}}</td>
         <td>{{_data.alamat}}</td>

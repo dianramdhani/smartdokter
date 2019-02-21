@@ -7,10 +7,10 @@
 
 <table class="w3-table-all">
     <tr>
-        <th>Drug Name</th>
-        <th>Price</th>
+        <th ng-click="orderProperty='namaObat'">Drug Name</th>
+        <th ng-click="orderProperty='harga'">Price</th>
     </tr>
-    <tr ng-repeat="_data in data track by _data.id">
+    <tr ng-repeat="_data in data | orderBy: orderProperty track by _data.id">
         <td>{{_data.namaObat}}</td>
         <td>{{_data.harga}}</td>
     </tr>

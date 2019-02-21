@@ -34,7 +34,6 @@
                                 }));
                             });
                     });
-                    console.log($scope.data)
                 });
 
             $scope.detailPayment = (data) => {

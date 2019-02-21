@@ -3,16 +3,16 @@
 
 <table class="w3-table-all">
     <tr>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Date of Service</th>
-        <th>Queue Number</th>
-        <th>Total Bill</th>
+        <th ng-click="orderProperty='dataPasien.nama'">Name</th>
+        <th ng-click="orderProperty='dataPasien.gender'">Gender</th>
+        <th ng-click="orderProperty='dataPasien.alamat'">Address</th>
+        <th ng-click="orderProperty='dataPasien.telefon'">Phone</th>
+        <th ng-click="orderProperty='dataPendaftaran.tanggalKunjungan'">Date of Service</th>
+        <th ng-click="orderProperty='dataPendaftaran.nomorAntrian'">Queue Number</th>
+        <th ng-click="orderProperty='totalBiaya'">Total Bill</th>
         <th>Detail</th>
     </tr>
-    <tr ng-repeat="_data in data track by _data.id">
+    <tr ng-repeat="_data in data | orderBy: orderProperty track by _data.id">
         <td>{{_data.dataPasien.nama}}</td>
         <td>{{_data.dataPasien.gender}}</td>
         <td>{{_data.dataPasien.alamat}}</td>

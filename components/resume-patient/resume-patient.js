@@ -14,8 +14,8 @@
             controllerAs: '$ctrl'
         });
 
-    resumePatientController.$inject = ['$state', '$scope', '$stateParams', '$q', 'Riwayat', 'Pendaftaran', 'Pasien', 'Dokter', 'TransaksiObat', 'Obat'];
-    function resumePatientController($state, $scope, $stateParams, $q, Riwayat, Pendaftaran, Pasien, Dokter, TransaksiObat, Obat) {
+    resumePatientController.$inject = ['$state', '$scope', '$stateParams', '$q', 'Riwayat', 'Pendaftaran', 'Pasien', 'Dokter', 'TransaksiObat', 'Obat', 'Fisik'];
+    function resumePatientController($state, $scope, $stateParams, $q, Riwayat, Pendaftaran, Pasien, Dokter, TransaksiObat, Obat, Fisik) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -33,14 +33,16 @@
                             Pendaftaran.getAntriById(_dataRiwayat.idPendaftaran),
                             Pasien.getDataPasienById(_dataRiwayat.idPasien),
                             Dokter.getDokterById(_dataRiwayat.idDokter),
-                            TransaksiObat.getTransaksiObatByIdAntrian(_dataRiwayat.idPendaftaran)
+                            TransaksiObat.getTransaksiObatByIdAntrian(_dataRiwayat.idPendaftaran),
+                            Fisik.getFisikByIdPendaftaran(_dataRiwayat.idPendaftaran)
                         ])
                             .then((res) => {
                                 _dataRiwayat = Object.assign(_dataRiwayat, {
                                     dataPendaftaran: res[0],
                                     dataPasien: res[1],
                                     dataDokter: res[2],
-                                    dataTransaksiObat: res[3]
+                                    dataTransaksiObat: res[3],
+                                    dataFisik: res[4]
                                 });
                                 _dataRiwayat.dataTransaksiObat.forEach(_dataTransaksiObat => {
                                     Obat.getObatById(_dataTransaksiObat.idObat)

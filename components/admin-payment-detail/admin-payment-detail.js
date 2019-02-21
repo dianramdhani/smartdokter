@@ -14,8 +14,8 @@
             controllerAs: '$ctrl'
         });
 
-    adminPaymentDetailController.$inject = ['$scope', '$stateParams', '$q', 'Dokter', 'Pendaftaran', 'TransaksiObat', 'Obat'];
-    function adminPaymentDetailController($scope, $stateParams, $q, Dokter, Pendaftaran, TransaksiObat, Obat) {
+    adminPaymentDetailController.$inject = ['$scope', '$stateParams', '$q', 'Dokter', 'Pendaftaran', 'TransaksiObat', 'Obat', 'Fisik'];
+    function adminPaymentDetailController($scope, $stateParams, $q, Dokter, Pendaftaran, TransaksiObat, Obat, Fisik) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -23,13 +23,15 @@
             $q.all([
                 Dokter.getDokterById($scope.data.idDokter),
                 Pendaftaran.getAntriById($scope.data.idPendaftaran),
-                TransaksiObat.getTransaksiObatByIdAntrian($scope.data.idPendaftaran)
+                TransaksiObat.getTransaksiObatByIdAntrian($scope.data.idPendaftaran),
+                Fisik.getFisikByIdPendaftaran($scope.data.idPendaftaran)
             ])
                 .then((res) => {
                     $scope.data = Object.assign($scope.data, {
                         dataDokter: res[0],
                         dataPendaftaran: res[1],
-                        dataTransaksiObat: res[2]
+                        dataTransaksiObat: res[2],
+                        dataFisik: res[3]
                     });
                     $scope.data.dataTransaksiObat.forEach(_dataTransaksiObat => {
                         Obat.getObatById(_dataTransaksiObat.idObat)
