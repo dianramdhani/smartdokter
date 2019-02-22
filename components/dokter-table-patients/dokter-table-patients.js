@@ -33,7 +33,7 @@
                                     alamatPasien: _res[0].alamat,
                                     genderPasien: _res[0].gender,
                                     telefonPasien: _res[0].telefon,
-                                    status: _res[1].length === 0 ? 'Waiting' : 'Has Been Treatment'
+                                    status: _res[1].length === 0 ? 'Waiting' : 'Has Been Examined'
                                 });
                                 $scope.data.push(temp);
                             });

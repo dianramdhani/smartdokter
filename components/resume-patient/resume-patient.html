@@ -14,6 +14,7 @@
         <th>Blood Pressure (mm/Hg)</th>
         <th>Diagnose</th>
         <th>Action</th>
+        <th>Examination Bill</th>
         <th>Recipe</th>
         <th>Total Bill</th>
         <th>Doctor</th>
@@ -30,6 +31,7 @@
         <td>{{_data.dataFisik.tekananDarah}}</td>
         <td>{{_data.diagnosa}}</td>
         <td>{{_data.tindakan}}</td>
+        <td>{{_data.biayaPemeriksaan}}</td>
         <td>
             <span ng-repeat="dataTransaksiObat in _data.dataTransaksiObat track by dataTransaksiObat.id">
                 {{dataTransaksiObat.dataObat.namaObat}}-{{dataTransaksiObat.dataObat.harga}}<span

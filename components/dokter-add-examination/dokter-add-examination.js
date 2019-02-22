@@ -26,7 +26,6 @@
             $scope.dataRiwayat = {};
             $scope.dataTransaksiObat = [];
             $scope.dataExamination = $stateParams.data;
-            console.log($scope.dataExamination);
 
             // proses untuk form obat
             Obat.getAllObatByIdDokter()
