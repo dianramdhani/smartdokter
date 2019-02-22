@@ -37,7 +37,7 @@
                 });
 
             $scope.detailPayment = (data) => {
-                $state.go('admin.detailPayment', { riwayat: data });
+                $state.go('admin.paymentDetail', { riwayat: data });
             };
         };
     }

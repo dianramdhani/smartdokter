@@ -18,6 +18,7 @@
         <th>Recipe</th>
         <th>Total Bill</th>
         <th>Doctor</th>
+        <th>Detail Payment</th>
     </tr>
     <tr ng-repeat="_data in data track by _data.id">
         <td>{{_data.dataPendaftaran.tanggalKunjungan | date}}</td>
@@ -40,5 +41,10 @@
         </td>
         <td>{{_data.totalBiaya}}</td>
         <td>{{_data.dataDokter.nama}}</td>
+        <td>
+            <button class="w3-button w3-blue w3-block w3-tiny w3-padding-small" ng-click="detailPayment(_data)">
+                Detail Payment
+            </button>
+        </td>
     </tr>
 </table>

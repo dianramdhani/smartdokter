@@ -2,20 +2,20 @@
     'use strict';
 
     // Usage:
-    // Dipanggil oleh a-href di admin-table-payments saat melihat detail payment.
+    // Dipanggil oleh a-href di admin-table-payments dan resume-patient saat melihat detail payment dengan parameter Riwayat pasien.
     // Creates:
     // Menampilkan detail payment per id Pendaftaran.
 
     angular
         .module('smartdokter')
-        .component('adminPaymentDetail', {
-            template: require('./admin-payment-detail.html'),
-            controller: adminPaymentDetailController,
+        .component('paymentDetail', {
+            template: require('./payment-detail.html'),
+            controller: paymentDetailController,
             controllerAs: '$ctrl'
         });
 
-    adminPaymentDetailController.$inject = ['$scope', '$stateParams', '$q', 'Dokter', 'Pendaftaran', 'TransaksiObat', 'Obat', 'Fisik'];
-    function adminPaymentDetailController($scope, $stateParams, $q, Dokter, Pendaftaran, TransaksiObat, Obat, Fisik) {
+    paymentDetailController.$inject = ['$scope', '$stateParams', '$q', 'Dokter', 'Pendaftaran', 'TransaksiObat', 'Obat', 'Fisik'];
+    function paymentDetailController($scope, $stateParams, $q, Dokter, Pendaftaran, TransaksiObat, Obat, Fisik) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {

@@ -54,6 +54,10 @@
                     });
                     $scope.data = dataRiwayat;
                 });
+
+            $scope.detailPayment = (data) => {
+                $state.go(`${$state.$current.parent.name}.paymentDetail`, { riwayat: data });
+            };
         };
     }
 })();
