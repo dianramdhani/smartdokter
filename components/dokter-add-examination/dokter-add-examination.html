@@ -2,6 +2,39 @@
 <hr>
 
 <div class="w3-container" style="background-color: white;">
+    <h3>Data Service</h3>
+
+    <table class="w3-table-all">
+        <tr>
+            <th>Name Patient</th>
+            <td>{{dataExamination.namaPasien}}</td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>{{dataExamination.genderPasien}}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{dataExamination.alamatPasien}}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{dataExamination.telefonPasien}}</td>
+        </tr>
+        <tr>
+            <th>Symptoms</th>
+            <td>{{dataExamination.penyakit}}</td>
+        </tr>
+        <tr>
+            <th>Date of Service</th>
+            <td>{{dataExamination.tanggalKunjungan|date}}</td>
+        </tr>
+        <tr>
+            <th>Queue Number</th>
+            <td>{{dataExamination.nomorAntrian}}</td>
+        </tr>
+    </table>
+
     <h3>Measurement</h3>
 
     <label>Date of Measurement</label>
@@ -38,6 +71,10 @@
     <textarea class="w3-input w3-border" ng-class="dataRiwayat.tindakan? '': 'w3-pale-red'"
         ng-model="dataRiwayat.tindakan"></textarea>
 
+    <label>Examination Bill</label>
+    <input class="w3-input w3-border" type="number" ng-class="dataRiwayat.biayaPemeriksaan? '': 'w3-pale-red'"
+        ng-model="dataRiwayat.biayaPemeriksaan">
+
     <label>Drug</label>
     <select class="w3-select w3-border" ng-class="dataTransaksiObat.length !== 0? '': 'w3-pale-red'"
         ng-model="tempDataObat">
@@ -65,13 +102,14 @@
         </tr>
         <tr>
             <th>Total Bill</th>
-            <th class="w3-right">{{dataRiwayat.totalBiaya}}</th>
+            <th class="w3-right">{{dataRiwayat.totalBiaya + dataRiwayat.biayaPemeriksaan}}</th>
             <th></th>
         </tr>
     </table>
 
     <p>
-        <button class="w3-button w3-blue" ng-click="addExamination(dataRiwayat, dataTransaksiObat, dataFisik)">
+        <button class="w3-button w3-blue"
+            ng-click="dataRiwayat.totalBiaya = dataRiwayat.totalBiaya + dataRiwayat.biayaPemeriksaan; addExamination(dataRiwayat, dataTransaksiObat, dataFisik);">
             Add Examination
         </button>
         <a class="w3-button w3-red" ui-sref="dokter.patients">Cancel</a>

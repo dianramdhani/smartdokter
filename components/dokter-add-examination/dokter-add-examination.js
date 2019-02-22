@@ -25,6 +25,8 @@
             // inisialisasi $scope
             $scope.dataRiwayat = {};
             $scope.dataTransaksiObat = [];
+            $scope.dataExamination = $stateParams.data;
+            console.log($scope.dataExamination);
 
             // proses untuk form obat
             Obat.getAllObatByIdDokter()
@@ -49,7 +51,7 @@
 
             $scope.addExamination = (dataRiwayat, dataTransaksiObat, dataFisik) => {
                 // cek dataRiwayat
-                if (!checkParams(dataRiwayat, ['diagnosa', 'tindakan', 'totalBiaya'])) {
+                if (!checkParams(dataRiwayat, ['diagnosa', 'tindakan', 'biayaPemeriksaan', 'totalBiaya'])) {
                     alert('Please fill in correctly!');
                     return;
                 }
@@ -61,9 +63,9 @@
                 }
 
                 const TEMPLATE_DATA = {
-                    idPasien: $stateParams.data.idPasien,
-                    idDokter: $stateParams.data.idDokter,
-                    idPendaftaran: $stateParams.data.id
+                    idPasien: $scope.dataExamination.idPasien,
+                    idDokter: $scope.dataExamination.idDokter,
+                    idPendaftaran: $scope.dataExamination.id
                 };
 
                 // persiapan dataTransaksiObat
