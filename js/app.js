@@ -50,4 +50,4 @@ require('../components/admin-table-payments/admin-table-payments');
 require('../components/admin-payment-detail/admin-payment-detail');
 require('../components/dokter/dokter');
 require('../components/dokter-table-patients/dokter-table-patients');
-require('../components/dokter-add-treatment/dokter-add-treatment');
+require('../components/dokter-add-examination/dokter-add-examination');

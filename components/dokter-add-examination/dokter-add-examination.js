@@ -2,23 +2,23 @@
     'use strict';
 
     // Usage:
-    // Dipanggil oleh a-href add treatment di tabel patient list dokter.
+    // Dipanggil oleh a-href add examination di tabel patient list dokter.
     // Creates:
-    // Menampilkan form add treatment.
+    // Menampilkan form add examination.
 
     angular
         .module('smartdokter')
-        .component('dokterAddTreatment', {
-            template: require('./dokter-add-treatment.html'),
-            controller: dokterAddTreatmentController,
+        .component('dokterAddExamination', {
+            template: require('./dokter-add-examination.html'),
+            controller: dokterAddExaminationController,
             controllerAs: '$ctrl',
             bindings: {
                 Binding: '=',
             },
         });
 
-    dokterAddTreatmentController.$inject = ['$scope', '$state', '$stateParams', '$q', 'Obat', 'Riwayat', 'TransaksiObat', 'Fisik'];
-    function dokterAddTreatmentController($scope, $state, $stateParams, $q, Obat, Riwayat, TransaksiObat, Fisik) {
+    dokterAddExaminationController.$inject = ['$scope', '$state', '$stateParams', '$q', 'Obat', 'Riwayat', 'TransaksiObat', 'Fisik'];
+    function dokterAddExaminationController($scope, $state, $stateParams, $q, Obat, Riwayat, TransaksiObat, Fisik) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -47,7 +47,7 @@
                 $scope.dataRiwayat['totalBiaya'] = totalBiaya;
             });
 
-            $scope.addTreatment = (dataRiwayat, dataTransaksiObat, dataFisik) => {
+            $scope.addExamination = (dataRiwayat, dataTransaksiObat, dataFisik) => {
                 // cek dataRiwayat
                 if (!checkParams(dataRiwayat, ['diagnosa', 'tindakan', 'totalBiaya'])) {
                     alert('Please fill in correctly!');

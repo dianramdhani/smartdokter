@@ -40,8 +40,8 @@
                     });
                 });
 
-            $scope.addTreatment = (data) => {
-                $state.go('dokter.addTreatment', { data });
+            $scope.addExamination = (data) => {
+                $state.go('dokter.addExamination', { data });
             };
         };
     }
