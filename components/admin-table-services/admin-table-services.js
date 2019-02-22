@@ -35,7 +35,7 @@
                                     genderPasien: res[0].gender,
                                     telefonPasien: res[0].telefon,
                                     namaDokter: res[1].nama,
-                                    status: res[2].length === 0 ? 'Waiting' : 'Has Been Treatment'
+                                    status: res[2].length === 0 ? 'Waiting' : 'Has Been Examined'
                                 });
                                 $scope.data.push(temp);
                             });
