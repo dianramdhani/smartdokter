@@ -7,7 +7,7 @@
 
     Obat.$inject = ['$http', '$q', 'Auth'];
     function Obat($http, $q, Auth) {
-        const URL_SERVER = 'http://192.168.11.117:8082';
+        const URL_SERVER = 'http://smartdoctor.tritronik.com/api';
 
         // seluruh method di service
         this.addNewObat = addNewObat;

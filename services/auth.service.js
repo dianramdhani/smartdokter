@@ -7,7 +7,7 @@
 
     Auth.$inject = ['$http', '$q', '$rootScope', '$cookies', 'md5'];
     function Auth($http, $q, $rootScope, $cookies, md5) {
-        const URL_SERVER = 'http://192.168.11.117:8082';
+        const URL_SERVER = 'http://smartdoctor.tritronik.com/api';
 
         // Seluruh method di service
         this.login = login;

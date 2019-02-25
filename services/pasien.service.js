@@ -7,7 +7,7 @@
 
     Pasien.$inject = ['$http', '$q'];
     function Pasien($http, $q) {
-        const URL_SERVER = 'http://192.168.11.117:8082';
+        const URL_SERVER = 'http://smartdoctor.tritronik.com/api';
 
         // Seluruh method di service
         this.getAllDataPasiens = getAllDataPasiens;
