@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dianramdhani/smartdokter-build-2.git"
+    "url": "git+https://github.com/dianramdhani/smartdokter.git"
   },
   "author": "Dian Ramdhani Lubis",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dianramdhani/smartdokter-build-2/issues"
+    "url": "https://github.com/dianramdhani/smartdokter/issues"
   },
-  "homepage": "https://github.com/dianramdhani/smartdokter-build-2#readme",
+  "homepage": "https://github.com/dianramdhani/smartdokter#readme",
   "devDependencies": {
     "file-loader": "^3.0.1",
     "html-loader": "^0.5.5",
